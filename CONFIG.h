@@ -7,8 +7,9 @@
 
 //--------------------------------------------------------------------------------------------------------------------
 typedef uint8_t								Id_t;
-#define LED_NUMBER						( 1 )
-#define LED_TASK_NUMBER				( 1 )
+
+#define LED_NUMBER						( 2 )
+#define LED_TASK_NUMBER				( 2 )
 
 #define NRF_NUMBER						( 1 )
 #define NRF_TASK_NUMBER				( 1 )

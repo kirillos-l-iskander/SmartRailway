@@ -6,7 +6,7 @@
 
 #define BLINK_Period ( 0 )
 
-void LedTask_init( void );
+void LedTask_init( Id_t id );
 void LedTask_setState( Id_t id, uint8_t state, uint16_t period );
 void LedTask_update( void *paramter );
 

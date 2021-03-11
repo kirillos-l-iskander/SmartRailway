@@ -15,27 +15,23 @@ typedef struct
 static Lcd_t lcd[ LCD_NUMBER ];
 static uint8_t lcdRowAddress[ 4 ] = { 0x80, 0xC0, 0x90, 0xD0 };
 
-void Lcd_init( void )
+void Lcd_init( Id_t id )
 {
-	size_t id = 0;
 	size_t pin = 0;
-	for ( id = 0; id < LCD_NUMBER; id++ )
+	Gpio_initPin( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, OUTPUT );
+	Gpio_initPin( lcd[ id ].e_gpio_id, lcd[ id ].pinE, OUTPUT );
+	for ( pin = lcd[ id ].pinD0; pin < ( lcd[ id ].pinD0 + 8 ); pin++ )
 	{
-		Gpio_initPin( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, OUTPUT );
-		Gpio_initPin( lcd[ id ].e_gpio_id, lcd[ id ].pinE, OUTPUT );
-		for ( pin = lcd[ id ].pinD0; pin < ( lcd[ id ].pinD0 + 8 ); pin++ )
-		{
-			Gpio_initPin( lcd[ id ].d0_gpio_id, pin, OUTPUT );
-		}
-		Lcd_setCommand( (Id_t) id, RETURN_HOME );
-		DELAY_US( 100 );
-		Lcd_setCommand( (Id_t) id, DISPLAY_2_LINES_5x7_MATRIX_8_BIT );
-		DELAY_US( 100 );
-		Lcd_setCommand( (Id_t) id, DISPLAY_ON_CURSOR_OFF );
-		Lcd_setCommand( (Id_t) id, INCREMENT_CURSOR );
-		DELAY_US( 100 );
-		Lcd_clear( (Id_t) id );
+		Gpio_initPin( lcd[ id ].d0_gpio_id, pin, OUTPUT );
 	}
+	Lcd_setCommand( id, RETURN_HOME );
+	DELAY_US( 100 );
+	Lcd_setCommand( id, DISPLAY_2_LINES_5x7_MATRIX_8_BIT );
+	DELAY_US( 100 );
+	Lcd_setCommand( id, DISPLAY_ON_CURSOR_OFF );
+	Lcd_setCommand( id, INCREMENT_CURSOR );
+	DELAY_US( 100 );
+	Lcd_clear( id );
 }
 
 void Lcd_setCommand( Id_t id, uint8_t command )

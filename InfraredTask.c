@@ -7,14 +7,10 @@ typedef struct
 
 static InfraredTask_t infraredTask[ INFRARED_TASK_NUMBER ];
 
-void InfraredTask_init( void )
+void InfraredTask_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < INFRARED_TASK_NUMBER; id++ )
-	{
-		infraredTask[ id ].state = LOW;
-	}
-	Infrared_init();
+	infraredTask[ id ].state = LOW;
+	Infrared_init( id );
 }
 
 uint8_t InfraredTask_getState( Id_t id )
@@ -24,9 +20,6 @@ uint8_t InfraredTask_getState( Id_t id )
 
 void InfraredTask_update( void *paramter )
 {
-	size_t id = 0;
-	for ( id = 0; id < INFRARED_TASK_NUMBER; id++ )
-	{
-		infraredTask[ id ].state = !Infrared_getState( (Id_t) id );
-	}
+	Id_t id = (Id_t) paramter;
+	infraredTask[ id ].state = !Infrared_getState( id );
 }

@@ -15,21 +15,17 @@ typedef struct
 
 static Pid_t pid[ PID_NUMBER ];
 
-void Pid_init( void )
+void Pid_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < PID_NUMBER; id++ )
-	{
-		pid[ id ].error = 0;
-		pid[ id ].previousError = 0;
-		pid[ id ].kp = 1;
-		pid[ id ].p = 0;
-		pid[ id ].ki = 0;
-		pid[ id ].i = 0;
-		pid[ id ].kd = 0;
-		pid[ id ].d = 0;
-		pid[ id ].correction = 0;
-	}
+	pid[ id ].error = 0;
+	pid[ id ].previousError = 0;
+	pid[ id ].kp = 1;
+	pid[ id ].p = 0;
+	pid[ id ].ki = 0;
+	pid[ id ].i = 0;
+	pid[ id ].kd = 0;
+	pid[ id ].d = 0;
+	pid[ id ].correction = 0;
 }
 
 void Pid_setError( Id_t id, int32_t requiredState, int32_t currentState )
@@ -44,13 +40,10 @@ int32_t Pid_getCorrection( Id_t id )
 
 void Pid_update( void *paramter )
 {
-	size_t id = 0;
-	for ( id = 0; id < PID_NUMBER; id++ )
-	{
-		pid[ id ].p = pid[ id ].error;
-		pid[ id ].i = pid[ id ].i + pid[ id ].error;
-		pid[ id ].d = pid[ id ].error - pid[ id ].previousError;
-		pid[ id ].correction = ( pid[ id ].kp * pid[ id ].p ) + ( pid[ id ].ki * pid[ id ].i ) + ( pid[ id ].kd * pid[ id ].d );
-		pid[ id ].previousError = pid[ id ].error;
-	}
+	Id_t id = (Id_t) paramter;
+	pid[ id ].p = pid[ id ].error;
+	pid[ id ].i = pid[ id ].i + pid[ id ].error;
+	pid[ id ].d = pid[ id ].error - pid[ id ].previousError;
+	pid[ id ].correction = ( pid[ id ].kp * pid[ id ].p ) + ( pid[ id ].ki * pid[ id ].i ) + ( pid[ id ].kd * pid[ id ].d );
+	pid[ id ].previousError = pid[ id ].error;
 }

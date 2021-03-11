@@ -9,14 +9,10 @@ typedef struct
 
 static Encoder_t encoder[ ENCODER_NUMBER ];
 
-void Encoder_init( void )
+void Encoder_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < ENCODER_NUMBER; id++ )
-	{
-		Gpio_initPin( encoder[ id ].gpio_id, encoder[ id ].pin, INPUT );
-		Timer_initCounter( encoder[ id ].timer_id );
-	}
+	Gpio_initPin( encoder[ id ].gpio_id, encoder[ id ].pin, INPUT );
+	Timer_initCounter( encoder[ id ].timer_id );
 }
 
 UBaseType_t Encoder_getSpeed( Id_t id )

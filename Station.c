@@ -13,15 +13,11 @@ typedef struct
 
 static StationTask_t stationTask[ STATION_TASK_NUMBER ];
 
-void StationTask_init( void )
+void StationTask_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < STATION_TASK_NUMBER; id++ )
-	{
-		stationTask[ id ].state = 0;
-		stationTask[ id ].empty = 1;
-		stationTask[ id ].wait = 0;
-	}
+	stationTask[ id ].state = 0;
+	stationTask[ id ].empty = 1;
+	stationTask[ id ].wait = 0;
 }
 
 void StationTask_setNodeNumber( Id_t id, uint8_t nodeNumber )
@@ -136,35 +132,32 @@ void StationTask_serveTrain( Id_t id )
 
 void StationTask_update( void *paramter )
 {
-	size_t id = 0;
-	for ( id = 0; id < STATION_TASK_NUMBER; id++ )
+	Id_t id = (Id_t) paramter;
+	if( InfraredTask_getState( ( id*3 + 2 ) ) )
 	{
-		if( InfraredTask_getState( (Id_t)( id*3 + 2 ) ) )
-		{
-			stationTask[ id ].empty = 1;
-			LcdTask_clear( (Id_t) id );
-		}
-
-		switch( stationTask[ id ].state )
-		{
-			case 0:
-				StationTask_startState( (Id_t) id );
-				break;
-			case 1:
-				StationTask_getTrainAddress( (Id_t) id );
-				break;
-			case 2:
-				StationTask_detectTrainEnter( (Id_t) id );
-				break;
-			case 3:
-				StationTask_detectTrainReach( (Id_t) id );
-				break;
-			case 4:
-				StationTask_serveTrain( (Id_t) id );
-				break;
-		}
-		NrfTaskSlave_setBuffer( (Id_t) id, 0, stationTask[ id ].targetAddress );
-		NrfTaskSlave_setBuffer( (Id_t) id, 1, stationTask[ id ].currentAddress );
-		NrfTaskSlave_setBuffer( (Id_t) id, 2, stationTask[ id ].buffer );
+		stationTask[ id ].empty = 1;
+		LcdTask_clear( id );
 	}
+
+	switch( stationTask[ id ].state )
+	{
+		case 0:
+			StationTask_startState( id );
+			break;
+		case 1:
+			StationTask_getTrainAddress( id );
+			break;
+		case 2:
+			StationTask_detectTrainEnter( id );
+			break;
+		case 3:
+			StationTask_detectTrainReach( id );
+			break;
+		case 4:
+			StationTask_serveTrain( id );
+			break;
+	}
+	NrfTaskSlave_setBuffer( id, 0, stationTask[ id ].targetAddress );
+	NrfTaskSlave_setBuffer( id, 1, stationTask[ id ].currentAddress );
+	NrfTaskSlave_setBuffer( id, 2, stationTask[ id ].buffer );
 }

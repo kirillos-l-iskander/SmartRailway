@@ -10,17 +10,13 @@ typedef struct
 
 static LedTask_t ledTask[ LED_TASK_NUMBER ];
 
-void LedTask_init( void )
+void LedTask_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < LED_TASK_NUMBER; id++ )
-	{
-		ledTask[ id ].state = LOW;
-		ledTask[ id ].blink = 0;
-		ledTask[ id ].period = 0;
-		ledTask[ id ].delay = 0;
-	}
-	Led_init();
+	ledTask[ id ].state = LOW;
+	ledTask[ id ].blink = 0;
+	ledTask[ id ].period = 0;
+	ledTask[ id ].delay = 0;
+	Led_init( id );
 }
 
 void LedTask_setState( Id_t id, uint8_t state, uint16_t period )
@@ -31,20 +27,17 @@ void LedTask_setState( Id_t id, uint8_t state, uint16_t period )
 
 void LedTask_update( void *paramter )
 {
-	size_t id = 0;
-	for ( id = 0; id < LED_TASK_NUMBER; id++ )
+	Id_t id = (Id_t) paramter;
+	if( ledTask[ id ].delay )
 	{
-		if( ledTask[ id ].delay )
-		{
-			ledTask[ id ].delay--;
-		}else if( ledTask[ id ].period )
-		{
-			ledTask[ id ].blink ^= ledTask[ id ].state;
-			ledTask[ id ].delay = ledTask[ id ].period;
-		}else
-		{
-			ledTask[ id ].blink = 0;
-		}
-		Led_setState( (Id_t) id, !( ledTask[ id ].state & !ledTask[ id ].blink ) );
+		ledTask[ id ].delay--;
+	}else if( ledTask[ id ].period )
+	{
+		ledTask[ id ].blink ^= ledTask[ id ].state;
+		ledTask[ id ].delay = ledTask[ id ].period;
+	}else
+	{
+		ledTask[ id ].blink = 0;
 	}
+	Led_setState( id, !( ledTask[ id ].state & !ledTask[ id ].blink ) );
 }

@@ -12,7 +12,7 @@
 #define DISPLAY_2_LINES_5x7_MATRIX_8_BIT ( 0x38 )
 #define FORCE_CURSOR_HOME ( 0x80 )
 
-void Lcd_init( void );
+void Lcd_init( Id_t id );
 void Lcd_setCommand( Id_t id, uint8_t command );
 void Lcd_setCharacter( Id_t id, uint8_t character );
 void Lcd_setString( Id_t id, uint8_t *string );

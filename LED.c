@@ -9,14 +9,10 @@ typedef struct
 
 volatile static Led_t led[ LED_NUMBER ];
 
-void Led_init( void )
+void Led_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < LED_NUMBER; id++ )
-	{
-		led[ id ].state = LOW;
-		Gpio_initPin( led[ id ].gpio_id, led[ id ].pin, OUTPUT );
-	}
+	led[ id ].state = LOW;
+	Gpio_initPin( led[ id ].gpio_id, led[ id ].pin, OUTPUT );
 }
 
 void Led_setState( uint8_t id, uint8_t state )

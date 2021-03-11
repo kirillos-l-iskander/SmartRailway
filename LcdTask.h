@@ -4,7 +4,7 @@
 #include "SchedulerConfig.h"
 #include "Lcd.h"
 
-void LcdTask_init( void );
+void LcdTask_init( Id_t id );
 void LcdTask_setCharacter( Id_t id, uint8_t character, uint8_t row, uint8_t col );
 void LcdTask_setString( Id_t id, uint8_t *string, uint8_t row, uint8_t col );
 void LcdTask_clear( Id_t id );

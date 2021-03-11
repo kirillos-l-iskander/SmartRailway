@@ -18,49 +18,45 @@ typedef struct
 
 static Nrf_t nrf[ NRF_NUMBER ];
 
-void Nrf_init( void )
+void Nrf_init( Id_t id )
 {
-	size_t id = 0;
 	size_t pin = 0;
-	for ( id = 0; id < NRF_NUMBER; id++ )
+	Gpio_initPin( nrf[ id ].ce_gpio_id, nrf[ id ].pinCe, OUTPUT );
+	Gpio_initPin( nrf[ id ].csn_gpio_id, nrf[ id ].pinCsn, OUTPUT );
+	for ( pin = nrf[ id ].pinNss; pin < ( nrf[ id ].pinNss + 4 ); pin++ )
 	{
-		Gpio_initPin( nrf[ id ].ce_gpio_id, nrf[ id ].pinCe, OUTPUT );
-		Gpio_initPin( nrf[ id ].csn_gpio_id, nrf[ id ].pinCsn, OUTPUT );
-		for ( pin = nrf[ id ].pinNss; pin < ( nrf[ id ].pinNss + 4 ); pin++ )
-		{
-			Gpio_initPin( nrf[ id ].spi_gpio_id, pin, OUTPUT_AF );
-		}
-		Spi_init( nrf[ id ].spi_id );
-
-		Nrf_ce( (Id_t) id, LOW );
-		Nrf_csn( (Id_t) id, HIGH );
-
-		//Reset Interrupt
-		Nrf_writeByte( (Id_t) id, CONFIG, BV( MASK_RX_DR ) | BV( MASK_TX_DS ) | BV( MASK_MAX_RT ) | BV( EN_CRC ) | BV( CRCO ) );
-		//Reset Auto Acknowledge
-		Nrf_writeByte( (Id_t) id, EN_AA, 0x00 );
-		//Enable Payloads
-		//Nrf_WriteByte( (Id_t) id, EN_RXADDR, _BV( ERX_P0 ) );
-		//Set Address Size
-		Nrf_writeByte( (Id_t) id, SETUP_AW, 0x03 );
-		//Set Retries
-		Nrf_writeByte( (Id_t) id, SETUP_RETR, ( ( DELAY & 0xF )<<ARD | ( COUNT & 0xF )<<ARC ) );
-		//Set Channel to 0
-		Nrf_writeByte( (Id_t) id, RF_CH, 0x00 );
-		//Set DataRate to RF24_250KPS
-		Nrf_writeByte( (Id_t) id, RF_SETUP, ( Nrf_readByte( (Id_t) id, RF_SETUP ) | BV( RF_DR_LOW ) ) & ~BV( RF_DR_HIGH ) );
-		//Set PA to RF24_PA_MAX
-		Nrf_writeByte( (Id_t) id, RF_SETUP, ( Nrf_readByte( (Id_t) id, RF_SETUP ) & 0xF8 ) | RF24_PA_MAX<<RF_PWR );
-		//Nrf_writePage( (Id_t) id, TX_ADDR, NRF_Addr_G[ 0 ], ADDR_WIDTH );
-		//Nrf_writePage( (Id_t) id, RX_ADDR_P0, NRF_Addr_G[ 0 ], ADDR_WIDTH );
-		//Nrf_writeByte( (Id_t) id, RX_PW_P0, PAYLOAD_SIZE );
-		Nrf_writeByte( (Id_t) id, FEATURE, 0x00 );
-		Nrf_writeByte( (Id_t) id, DYNPD, 0x00 );
-
-		Nrf_writeByte( (Id_t) id, STATUS, BV( RX_DR ) | BV( TX_DS ) | BV( MAX_RT ) );
-		Nrf_flushTx( (Id_t) id );
-		Nrf_flushRx( (Id_t) id );
+		Gpio_initPin( nrf[ id ].spi_gpio_id, pin, OUTPUT_AF );
 	}
+	Spi_init( nrf[ id ].spi_id );
+
+	Nrf_ce( (Id_t) id, LOW );
+	Nrf_csn( (Id_t) id, HIGH );
+
+	//Reset Interrupt
+	Nrf_writeByte( (Id_t) id, CONFIG, BV( MASK_RX_DR ) | BV( MASK_TX_DS ) | BV( MASK_MAX_RT ) | BV( EN_CRC ) | BV( CRCO ) );
+	//Reset Auto Acknowledge
+	Nrf_writeByte( (Id_t) id, EN_AA, 0x00 );
+	//Enable Payloads
+	//Nrf_WriteByte( (Id_t) id, EN_RXADDR, _BV( ERX_P0 ) );
+	//Set Address Size
+	Nrf_writeByte( (Id_t) id, SETUP_AW, 0x03 );
+	//Set Retries
+	Nrf_writeByte( (Id_t) id, SETUP_RETR, ( ( DELAY & 0xF )<<ARD | ( COUNT & 0xF )<<ARC ) );
+	//Set Channel to 0
+	Nrf_writeByte( (Id_t) id, RF_CH, 0x00 );
+	//Set DataRate to RF24_250KPS
+	Nrf_writeByte( (Id_t) id, RF_SETUP, ( Nrf_readByte( (Id_t) id, RF_SETUP ) | BV( RF_DR_LOW ) ) & ~BV( RF_DR_HIGH ) );
+	//Set PA to RF24_PA_MAX
+	Nrf_writeByte( (Id_t) id, RF_SETUP, ( Nrf_readByte( (Id_t) id, RF_SETUP ) & 0xF8 ) | RF24_PA_MAX<<RF_PWR );
+	//Nrf_writePage( (Id_t) id, TX_ADDR, NRF_Addr_G[ 0 ], ADDR_WIDTH );
+	//Nrf_writePage( (Id_t) id, RX_ADDR_P0, NRF_Addr_G[ 0 ], ADDR_WIDTH );
+	//Nrf_writeByte( (Id_t) id, RX_PW_P0, PAYLOAD_SIZE );
+	Nrf_writeByte( (Id_t) id, FEATURE, 0x00 );
+	Nrf_writeByte( (Id_t) id, DYNPD, 0x00 );
+
+	Nrf_writeByte( (Id_t) id, STATUS, BV( RX_DR ) | BV( TX_DS ) | BV( MAX_RT ) );
+	Nrf_flushTx( (Id_t) id );
+	Nrf_flushRx( (Id_t) id );
 }
 
 void Nrf_setGpioCe( Id_t id, Id_t gpio_id, uint8_t pin )

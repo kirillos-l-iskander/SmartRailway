@@ -9,14 +9,10 @@ typedef struct
 
 static Motor_t motor[ MOTOR_NUMBER ];
 
-void Motor_init( void )
+void Motor_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < MOTOR_NUMBER; id++ )
-	{
-		Gpio_initPin( motor[ id ].gpio_id, motor[ id ].pin, OUTPUT_AF );
-		Timer_initPwm( motor[ id ].timer_id );
-	}
+	Gpio_initPin( motor[ id ].gpio_id, motor[ id ].pin, OUTPUT_AF );
+	Timer_initPwm( motor[ id ].timer_id );
 }
 
 void Motor_setSpeed( Id_t id, UBaseType_t speed )

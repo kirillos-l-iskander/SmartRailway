@@ -8,13 +8,9 @@ typedef struct
 
 static Infrared_t infrared[ INFRARED_NUMBER ];
 
-void Infrared_init( void )
+void Infrared_init( Id_t id )
 {
-	size_t id = 0;
-	for ( id = 0; id < INFRARED_NUMBER; id++ )
-	{
-		Gpio_initPin( infrared[ id ].idGpio, infrared[ id ].pin, INPUT );
-	}
+	Gpio_initPin( infrared[ id ].idGpio, infrared[ id ].pin, INPUT );
 }
 
 uint8_t Infrared_getState( Id_t id )

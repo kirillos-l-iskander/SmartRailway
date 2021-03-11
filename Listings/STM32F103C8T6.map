@@ -6,6 +6,7 @@ Section Cross References
 
     main.o(.text.SysTick_Handler) refers to scheduler.o(.text.Scheduler_update) for Scheduler_update
     main.o(.ARM.exidx.text.SysTick_Handler) refers to main.o(.text.SysTick_Handler) for [Anonymous Symbol]
+    main.o(.text.main) refers to main.o(.text.serverTask) for serverTask
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.text.serverTask) refers to rcc.o(.text.Rcc_enableClock) for Rcc_enableClock
     main.o(.text.serverTask) refers to afio.o(.text.Afio_disableJTAG) for Afio_disableJTAG
@@ -226,8 +227,8 @@ Section Cross References
     infraredtask.o(.ARM.exidx.text.InfraredTask_init) refers to infraredtask.o(.text.InfraredTask_init) for [Anonymous Symbol]
     infraredtask.o(.text.InfraredTask_getState) refers to infraredtask.o(.bss.infraredTask) for infraredTask
     infraredtask.o(.ARM.exidx.text.InfraredTask_getState) refers to infraredtask.o(.text.InfraredTask_getState) for [Anonymous Symbol]
-    infraredtask.o(.text.InfraredTask_update) refers to infraredtask.o(.bss.infraredTask) for infraredTask
     infraredtask.o(.text.InfraredTask_update) refers to infrared.o(.text.Infrared_getState) for Infrared_getState
+    infraredtask.o(.text.InfraredTask_update) refers to infraredtask.o(.bss.infraredTask) for infraredTask
     infraredtask.o(.ARM.exidx.text.InfraredTask_update) refers to infraredtask.o(.text.InfraredTask_update) for [Anonymous Symbol]
     led.o(.text.Led_init) refers to led.o(.bss.led) for led
     led.o(.text.Led_init) refers to gpio.o(.text.Gpio_initPin) for Gpio_initPin
@@ -385,10 +386,10 @@ Section Cross References
     nrf.o(.ARM.exidx.text.Nrf_openReadingPipe4) refers to nrf.o(.text.Nrf_openReadingPipe4) for [Anonymous Symbol]
     nrf.o(.text.Nrf_openReadingPipe5) refers to nrf.o(.text.Nrf_writeByte) for Nrf_writeByte
     nrf.o(.ARM.exidx.text.Nrf_openReadingPipe5) refers to nrf.o(.text.Nrf_openReadingPipe5) for [Anonymous Symbol]
-    nrftask.o(.text.NrfTaskMaster_init) refers to nrf.o(.text.Nrf_init) for Nrf_init
     nrftask.o(.text.NrfTaskMaster_init) refers to nrftask.o(.bss.nrfTaskMaster) for nrfTaskMaster
     nrftask.o(.text.NrfTaskMaster_init) refers to nrftask.o(.text.NrfTaskMaster_clearTxBuffer) for NrfTaskMaster_clearTxBuffer
     nrftask.o(.text.NrfTaskMaster_init) refers to nrftask.o(.text.NrfTaskMaster_clearRxBuffer) for NrfTaskMaster_clearRxBuffer
+    nrftask.o(.text.NrfTaskMaster_init) refers to nrf.o(.text.Nrf_init) for Nrf_init
     nrftask.o(.text.NrfTaskMaster_init) refers to nrf.o(.text.Nrf_openWritingPipe) for Nrf_openWritingPipe
     nrftask.o(.text.NrfTaskMaster_init) refers to nrf.o(.text.Nrf_startTxMode) for Nrf_startTxMode
     nrftask.o(.ARM.exidx.text.NrfTaskMaster_init) refers to nrftask.o(.text.NrfTaskMaster_init) for [Anonymous Symbol]
@@ -409,10 +410,10 @@ Section Cross References
     nrftask.o(.text.NrfTaskMaster_update) refers to nrf.o(.text.Nrf_stopRxMode) for Nrf_stopRxMode
     nrftask.o(.text.NrfTaskMaster_update) refers to ledtask.o(.text.LedTask_setState) for LedTask_setState
     nrftask.o(.ARM.exidx.text.NrfTaskMaster_update) refers to nrftask.o(.text.NrfTaskMaster_update) for [Anonymous Symbol]
-    nrftask.o(.text.NrfTaskSlave_init) refers to nrf.o(.text.Nrf_init) for Nrf_init
     nrftask.o(.text.NrfTaskSlave_init) refers to nrftask.o(.bss.nrfTaskSlave) for nrfTaskSlave
     nrftask.o(.text.NrfTaskSlave_init) refers to nrftask.o(.text.NrfTaskSlave_clearTxBuffer) for NrfTaskSlave_clearTxBuffer
     nrftask.o(.text.NrfTaskSlave_init) refers to nrftask.o(.text.NrfTaskSlave_clearRxBuffer) for NrfTaskSlave_clearRxBuffer
+    nrftask.o(.text.NrfTaskSlave_init) refers to nrf.o(.text.Nrf_init) for Nrf_init
     nrftask.o(.text.NrfTaskSlave_init) refers to nrf.o(.text.Nrf_openWritingPipe) for Nrf_openWritingPipe
     nrftask.o(.ARM.exidx.text.NrfTaskSlave_init) refers to nrftask.o(.text.NrfTaskSlave_init) for [Anonymous Symbol]
     nrftask.o(.text.NrfTaskSlave_clearTxBuffer) refers to nrftask.o(.bss.nrfTaskSlave) for nrfTaskSlave
@@ -680,23 +681,19 @@ Removing Unused input sections from the image.
     Removing main.o(.text), (0 bytes).
     Removing main.o(.ARM.exidx.text.SysTick_Handler), (8 bytes).
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
-    Removing main.o(.text.serverTask), (214 bytes).
     Removing main.o(.ARM.exidx.text.serverTask), (8 bytes).
-    Removing main.o(.text.station1Task), (342 bytes).
+    Removing main.o(.text.station1Task), (410 bytes).
     Removing main.o(.ARM.exidx.text.station1Task), (8 bytes).
-    Removing main.o(.text.station2Task), (342 bytes).
+    Removing main.o(.text.station2Task), (410 bytes).
     Removing main.o(.ARM.exidx.text.station2Task), (8 bytes).
-    Removing main.o(.text.train1Task), (286 bytes).
+    Removing main.o(.text.train1Task), (302 bytes).
     Removing main.o(.ARM.exidx.text.train1Task), (8 bytes).
-    Removing main.o(.text.train2Task), (286 bytes).
+    Removing main.o(.text.train2Task), (302 bytes).
     Removing main.o(.ARM.exidx.text.train2Task), (8 bytes).
     Removing main.o(.ARM.use_no_argv), (4 bytes).
     Removing schedulerconfig.o(.text), (0 bytes).
-    Removing schedulerconfig.o(.text.Scheduler_initSysTick), (40 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_initSysTick), (8 bytes).
-    Removing schedulerconfig.o(.text.Scheduler_displayError), (18 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_displayError), (8 bytes).
-    Removing schedulerconfig.o(.text.Scheduler_sleepHardware), (2 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_sleepHardware), (8 bytes).
     Removing schedulerconfig.o(.text.Scheduler_delayHardwareMs), (8 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_delayHardwareMs), (8 bytes).
@@ -704,31 +701,20 @@ Removing Unused input sections from the image.
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_delayHardwareUs), (8 bytes).
     Removing schedulerconfig.o(.text.Scheduler_delaySoftwareMs), (38 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_delaySoftwareMs), (8 bytes).
-    Removing schedulerconfig.o(.text.Scheduler_delaySoftwareUs), (48 bytes).
     Removing schedulerconfig.o(.ARM.exidx.text.Scheduler_delaySoftwareUs), (8 bytes).
     Removing scheduler.o(.text), (0 bytes).
-    Removing scheduler.o(.text.Scheduler_init), (36 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_init), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_deleteTask), (44 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_deleteTask), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_addTask), (64 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_addTask), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_start), (10 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_start), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_reportStatus), (34 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_reportStatus), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_goToSleep), (52 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_goToSleep), (8 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_update), (8 bytes).
-    Removing scheduler.o(.text.Scheduler_dispatchTasks), (74 bytes).
     Removing scheduler.o(.ARM.exidx.text.Scheduler_dispatchTasks), (8 bytes).
     Removing rcc.o(.text), (0 bytes).
-    Removing rcc.o(.text.Rcc_enableClock), (360 bytes).
     Removing rcc.o(.ARM.exidx.text.Rcc_enableClock), (8 bytes).
     Removing gpio.o(.text), (0 bytes).
-    Removing gpio.o(.text.Gpio_initPin), (52 bytes).
     Removing gpio.o(.ARM.exidx.text.Gpio_initPin), (8 bytes).
-    Removing gpio.o(.text.Gpio_setPinState), (38 bytes).
     Removing gpio.o(.ARM.exidx.text.Gpio_setPinState), (8 bytes).
     Removing gpio.o(.text.Gpio_getPinState), (24 bytes).
     Removing gpio.o(.ARM.exidx.text.Gpio_getPinState), (8 bytes).
@@ -736,9 +722,7 @@ Removing Unused input sections from the image.
     Removing gpio.o(.ARM.exidx.text.Gpio_setPortState), (8 bytes).
     Removing gpio.o(.text.Gpio_getPortState), (18 bytes).
     Removing gpio.o(.ARM.exidx.text.Gpio_getPortState), (8 bytes).
-    Removing gpio.o(.rodata.gpio), (12 bytes).
     Removing afio.o(.text), (0 bytes).
-    Removing afio.o(.text.Afio_disableJTAG), (16 bytes).
     Removing afio.o(.ARM.exidx.text.Afio_disableJTAG), (8 bytes).
     Removing timer.o(.text), (0 bytes).
     Removing timer.o(.text.Timer_initCounter), (64 bytes).
@@ -761,13 +745,10 @@ Removing Unused input sections from the image.
     Removing adc.o(.ARM.exidx.text.Adc_getState), (8 bytes).
     Removing adc.o(.rodata.cst8), (8 bytes).
     Removing spi.o(.text), (0 bytes).
-    Removing spi.o(.text.Spi_init), (30 bytes).
     Removing spi.o(.ARM.exidx.text.Spi_init), (8 bytes).
-    Removing spi.o(.text.Spi_transfer), (38 bytes).
     Removing spi.o(.ARM.exidx.text.Spi_transfer), (8 bytes).
-    Removing spi.o(.rodata.cst8), (8 bytes).
     Removing infrared.o(.text), (0 bytes).
-    Removing infrared.o(.text.Infrared_init), (36 bytes).
+    Removing infrared.o(.text.Infrared_init), (28 bytes).
     Removing infrared.o(.ARM.exidx.text.Infrared_init), (8 bytes).
     Removing infrared.o(.text.Infrared_getState), (28 bytes).
     Removing infrared.o(.ARM.exidx.text.Infrared_getState), (8 bytes).
@@ -775,31 +756,23 @@ Removing Unused input sections from the image.
     Removing infrared.o(.ARM.exidx.text.Infrared_setGpio), (8 bytes).
     Removing infrared.o(.bss.infrared), (6 bytes).
     Removing infraredtask.o(.text), (0 bytes).
-    Removing infraredtask.o(.text.InfraredTask_init), (22 bytes).
+    Removing infraredtask.o(.text.InfraredTask_init), (20 bytes).
     Removing infraredtask.o(.ARM.exidx.text.InfraredTask_init), (8 bytes).
     Removing infraredtask.o(.text.InfraredTask_getState), (12 bytes).
     Removing infraredtask.o(.ARM.exidx.text.InfraredTask_getState), (8 bytes).
-    Removing infraredtask.o(.text.InfraredTask_update), (34 bytes).
+    Removing infraredtask.o(.text.InfraredTask_update), (28 bytes).
     Removing infraredtask.o(.ARM.exidx.text.InfraredTask_update), (8 bytes).
     Removing infraredtask.o(.bss.infraredTask), (3 bytes).
     Removing led.o(.text), (0 bytes).
-    Removing led.o(.text.Led_init), (26 bytes).
     Removing led.o(.ARM.exidx.text.Led_init), (8 bytes).
-    Removing led.o(.text.Led_setState), (30 bytes).
     Removing led.o(.ARM.exidx.text.Led_setState), (8 bytes).
-    Removing led.o(.text.Led_setGpio), (24 bytes).
     Removing led.o(.ARM.exidx.text.Led_setGpio), (8 bytes).
-    Removing led.o(.bss.led), (3 bytes).
     Removing ledtask.o(.text), (0 bytes).
-    Removing ledtask.o(.text.LedTask_init), (22 bytes).
     Removing ledtask.o(.ARM.exidx.text.LedTask_init), (8 bytes).
-    Removing ledtask.o(.text.LedTask_setState), (38 bytes).
     Removing ledtask.o(.ARM.exidx.text.LedTask_setState), (8 bytes).
-    Removing ledtask.o(.text.LedTask_update), (64 bytes).
     Removing ledtask.o(.ARM.exidx.text.LedTask_update), (8 bytes).
-    Removing ledtask.o(.bss.ledTask), (6 bytes).
     Removing lcd.o(.text), (0 bytes).
-    Removing lcd.o(.text.Lcd_init), (118 bytes).
+    Removing lcd.o(.text.Lcd_init), (136 bytes).
     Removing lcd.o(.ARM.exidx.text.Lcd_init), (8 bytes).
     Removing lcd.o(.text.Lcd_setCommand), (78 bytes).
     Removing lcd.o(.ARM.exidx.text.Lcd_setCommand), (8 bytes).
@@ -819,7 +792,7 @@ Removing Unused input sections from the image.
     Removing lcd.o(.ARM.exidx.text.Lcd_setGpioD0), (8 bytes).
     Removing lcd.o(.bss.lcd), (8 bytes).
     Removing lcdtask.o(.text), (0 bytes).
-    Removing lcdtask.o(.text.LcdTask_init), (26 bytes).
+    Removing lcdtask.o(.text.LcdTask_init), (36 bytes).
     Removing lcdtask.o(.ARM.exidx.text.LcdTask_init), (8 bytes).
     Removing lcdtask.o(.text.LcdTask_clear), (60 bytes).
     Removing lcdtask.o(.ARM.exidx.text.LcdTask_clear), (8 bytes).
@@ -827,55 +800,35 @@ Removing Unused input sections from the image.
     Removing lcdtask.o(.ARM.exidx.text.LcdTask_setCharacter), (8 bytes).
     Removing lcdtask.o(.text.LcdTask_setString), (86 bytes).
     Removing lcdtask.o(.ARM.exidx.text.LcdTask_setString), (8 bytes).
-    Removing lcdtask.o(.text.LcdTask_update), (88 bytes).
+    Removing lcdtask.o(.text.LcdTask_update), (90 bytes).
     Removing lcdtask.o(.ARM.exidx.text.LcdTask_update), (8 bytes).
     Removing lcdtask.o(.bss.lcdTask), (34 bytes).
     Removing nrf.o(.text), (0 bytes).
-    Removing nrf.o(.text.Nrf_init), (222 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_init), (8 bytes).
-    Removing nrf.o(.text.Nrf_ce), (36 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_ce), (8 bytes).
-    Removing nrf.o(.text.Nrf_csn), (36 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_csn), (8 bytes).
-    Removing nrf.o(.text.Nrf_writeByte), (66 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_writeByte), (8 bytes).
-    Removing nrf.o(.text.Nrf_readByte), (60 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_readByte), (8 bytes).
-    Removing nrf.o(.text.Nrf_flushTx), (44 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_flushTx), (8 bytes).
-    Removing nrf.o(.text.Nrf_flushRx), (44 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_flushRx), (8 bytes).
-    Removing nrf.o(.text.Nrf_setGpioCe), (22 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_setGpioCe), (8 bytes).
-    Removing nrf.o(.text.Nrf_setGpioCsn), (22 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_setGpioCsn), (8 bytes).
-    Removing nrf.o(.text.Nrf_setGpioSpi), (22 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_setGpioSpi), (8 bytes).
-    Removing nrf.o(.text.Nrf_setSpi), (20 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_setSpi), (8 bytes).
-    Removing nrf.o(.text.Nrf_writePage), (88 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_writePage), (8 bytes).
     Removing nrf.o(.text.Nrf_readPage), (86 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_readPage), (8 bytes).
-    Removing nrf.o(.text.Nrf_startTxMode), (26 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_startTxMode), (8 bytes).
-    Removing nrf.o(.text.Nrf_startRxMode), (32 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_startRxMode), (8 bytes).
-    Removing nrf.o(.text.Nrf_stopRxMode), (10 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_stopRxMode), (8 bytes).
-    Removing nrf.o(.text.Nrf_checkTxFlag), (120 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_checkTxFlag), (8 bytes).
-    Removing nrf.o(.text.Nrf_checkRxFlag), (42 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_checkRxFlag), (8 bytes).
-    Removing nrf.o(.text.Nrf_transmit), (94 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_transmit), (8 bytes).
-    Removing nrf.o(.text.Nrf_receive), (74 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_receive), (8 bytes).
     Removing nrf.o(.text.Nrf_ack), (72 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_ack), (8 bytes).
     Removing nrf.o(.text.Nrf_setChannel), (12 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_setChannel), (8 bytes).
-    Removing nrf.o(.text.Nrf_openWritingPipe), (50 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_openWritingPipe), (8 bytes).
     Removing nrf.o(.text.Nrf_openReadingPipe1), (38 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_openReadingPipe1), (8 bytes).
@@ -887,36 +840,28 @@ Removing Unused input sections from the image.
     Removing nrf.o(.ARM.exidx.text.Nrf_openReadingPipe4), (8 bytes).
     Removing nrf.o(.text.Nrf_openReadingPipe5), (36 bytes).
     Removing nrf.o(.ARM.exidx.text.Nrf_openReadingPipe5), (8 bytes).
-    Removing nrf.o(.bss.nrf), (12 bytes).
     Removing nrftask.o(.text), (0 bytes).
-    Removing nrftask.o(.text.NrfTaskMaster_init), (100 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskMaster_init), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskMaster_clearTxBuffer), (48 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskMaster_clearTxBuffer), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskMaster_clearRxBuffer), (48 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskMaster_clearRxBuffer), (8 bytes).
     Removing nrftask.o(.text.NrfTaskMaster_setNodeNumber), (20 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskMaster_setNodeNumber), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskMaster_update), (324 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskMaster_update), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskSlave_init), (56 bytes).
+    Removing nrftask.o(.text.NrfTaskSlave_init), (68 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_init), (8 bytes).
     Removing nrftask.o(.text.NrfTaskSlave_clearTxBuffer), (26 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_clearTxBuffer), (8 bytes).
     Removing nrftask.o(.text.NrfTaskSlave_clearRxBuffer), (26 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_clearRxBuffer), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskSlave_setNodeNumber), (20 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_setNodeNumber), (8 bytes).
     Removing nrftask.o(.text.NrfTaskSlave_setBuffer), (22 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_setBuffer), (8 bytes).
     Removing nrftask.o(.text.NrfTaskSlave_getBuffer), (22 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_getBuffer), (8 bytes).
-    Removing nrftask.o(.text.NrfTaskSlave_update), (160 bytes).
+    Removing nrftask.o(.text.NrfTaskSlave_update), (180 bytes).
     Removing nrftask.o(.ARM.exidx.text.NrfTaskSlave_update), (8 bytes).
-    Removing nrftask.o(.bss.nrfTaskMaster), (80 bytes).
-    Removing nrftask.o(.bss.nrfTaskSlave), (20 bytes).
     Removing encoder.o(.text), (0 bytes).
-    Removing encoder.o(.text.Encoder_init), (28 bytes).
+    Removing encoder.o(.text.Encoder_init), (34 bytes).
     Removing encoder.o(.ARM.exidx.text.Encoder_init), (8 bytes).
     Removing encoder.o(.text.Encoder_getSpeed), (24 bytes).
     Removing encoder.o(.ARM.exidx.text.Encoder_getSpeed), (8 bytes).
@@ -928,17 +873,17 @@ Removing Unused input sections from the image.
     Removing encoder.o(.ARM.exidx.text.Encoder_setTimer), (8 bytes).
     Removing encoder.o(.bss.encoder), (3 bytes).
     Removing pid.o(.text), (0 bytes).
-    Removing pid.o(.text.Pid_init), (32 bytes).
+    Removing pid.o(.text.Pid_init), (42 bytes).
     Removing pid.o(.ARM.exidx.text.Pid_init), (8 bytes).
     Removing pid.o(.text.Pid_setError), (20 bytes).
     Removing pid.o(.ARM.exidx.text.Pid_setError), (8 bytes).
     Removing pid.o(.text.Pid_getCorrection), (20 bytes).
     Removing pid.o(.ARM.exidx.text.Pid_getCorrection), (8 bytes).
-    Removing pid.o(.text.Pid_update), (50 bytes).
+    Removing pid.o(.text.Pid_update), (64 bytes).
     Removing pid.o(.ARM.exidx.text.Pid_update), (8 bytes).
     Removing pid.o(.bss.pid), (36 bytes).
     Removing motor.o(.text), (0 bytes).
-    Removing motor.o(.text.Motor_init), (28 bytes).
+    Removing motor.o(.text.Motor_init), (34 bytes).
     Removing motor.o(.ARM.exidx.text.Motor_init), (8 bytes).
     Removing motor.o(.text.Motor_setSpeed), (24 bytes).
     Removing motor.o(.ARM.exidx.text.Motor_setSpeed), (8 bytes).
@@ -950,7 +895,7 @@ Removing Unused input sections from the image.
     Removing motor.o(.ARM.exidx.text.Motor_setTimer), (8 bytes).
     Removing motor.o(.bss.motor), (3 bytes).
     Removing station.o(.text), (0 bytes).
-    Removing station.o(.text.StationTask_init), (20 bytes).
+    Removing station.o(.text.StationTask_init), (26 bytes).
     Removing station.o(.ARM.exidx.text.StationTask_init), (8 bytes).
     Removing station.o(.text.StationTask_setNodeNumber), (50 bytes).
     Removing station.o(.ARM.exidx.text.StationTask_setNodeNumber), (8 bytes).
@@ -964,14 +909,14 @@ Removing Unused input sections from the image.
     Removing station.o(.ARM.exidx.text.StationTask_detectTrainReach), (8 bytes).
     Removing station.o(.text.StationTask_serveTrain), (464 bytes).
     Removing station.o(.ARM.exidx.text.StationTask_serveTrain), (8 bytes).
-    Removing station.o(.text.StationTask_update), (114 bytes).
+    Removing station.o(.text.StationTask_update), (132 bytes).
     Removing station.o(.ARM.exidx.text.StationTask_update), (8 bytes).
     Removing station.o(.bss.stationTask), (8 bytes).
     Removing station.o(.rodata.str1.1), (22 bytes).
     Removing train.o(.text), (0 bytes).
-    Removing train.o(.text.TrainTask_init), (16 bytes).
+    Removing train.o(.text.TrainTask_init), (22 bytes).
     Removing train.o(.ARM.exidx.text.TrainTask_init), (8 bytes).
-    Removing train.o(.text.TrainTask_update), (150 bytes).
+    Removing train.o(.text.TrainTask_update), (148 bytes).
     Removing train.o(.ARM.exidx.text.TrainTask_update), (8 bytes).
     Removing system_stm32f10x.o(.text), (0 bytes).
     Removing system_stm32f10x.o(.ARM.exidx.text.SystemInit), (8 bytes).
@@ -982,7 +927,7 @@ Removing Unused input sections from the image.
     Removing system_stm32f10x.o(.data.SystemCoreClock), (4 bytes).
     Removing system_stm32f10x.o(.rodata.AHBPrescTable), (16 bytes).
 
-304 unused section(s) (total 9534 bytes) removed from the image.
+248 unused section(s) (total 6627 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1128,22 +1073,84 @@ Image Symbol Table
     .text                                    0x08000218   Section        0  sys_exit.o(.text)
     .text                                    0x08000224   Section        2  use_no_semi.o(.text)
     .text                                    0x08000226   Section        0  indicate_semi.o(.text)
-    [Anonymous Symbol]                       0x08000228   Section        0  scheduler.o(.text.Scheduler_update)
-    SetSysClock                              0x08000269   Thumb Code     8  system_stm32f10x.o(.text.SetSysClock)
-    [Anonymous Symbol]                       0x08000268   Section        0  system_stm32f10x.o(.text.SetSysClock)
-    SetSysClockTo72                          0x08000271   Thumb Code   190  system_stm32f10x.o(.text.SetSysClockTo72)
-    [Anonymous Symbol]                       0x08000270   Section        0  system_stm32f10x.o(.text.SetSysClockTo72)
-    [Anonymous Symbol]                       0x08000330   Section        0  main.o(.text.SysTick_Handler)
-    [Anonymous Symbol]                       0x08000338   Section        0  system_stm32f10x.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x08000390   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x08000228   Section        0  afio.o(.text.Afio_disableJTAG)
+    [Anonymous Symbol]                       0x08000238   Section        0  gpio.o(.text.Gpio_initPin)
+    [Anonymous Symbol]                       0x0800026c   Section        0  gpio.o(.text.Gpio_setPinState)
+    [Anonymous Symbol]                       0x08000294   Section        0  ledtask.o(.text.LedTask_init)
+    [Anonymous Symbol]                       0x080002b4   Section        0  ledtask.o(.text.LedTask_setState)
+    [Anonymous Symbol]                       0x080002dc   Section        0  ledtask.o(.text.LedTask_update)
+    [Anonymous Symbol]                       0x08000334   Section        0  led.o(.text.Led_init)
+    [Anonymous Symbol]                       0x08000354   Section        0  led.o(.text.Led_setGpio)
+    [Anonymous Symbol]                       0x0800036c   Section        0  led.o(.text.Led_setState)
+    [Anonymous Symbol]                       0x0800038c   Section        0  nrftask.o(.text.NrfTaskMaster_clearRxBuffer)
+    [Anonymous Symbol]                       0x080003bc   Section        0  nrftask.o(.text.NrfTaskMaster_clearTxBuffer)
+    [Anonymous Symbol]                       0x080003ec   Section        0  nrftask.o(.text.NrfTaskMaster_init)
+    [Anonymous Symbol]                       0x08000460   Section        0  nrftask.o(.text.NrfTaskMaster_update)
+    [Anonymous Symbol]                       0x080005cc   Section        0  nrftask.o(.text.NrfTaskSlave_setNodeNumber)
+    [Anonymous Symbol]                       0x080005e0   Section        0  nrf.o(.text.Nrf_ce)
+    [Anonymous Symbol]                       0x08000604   Section        0  nrf.o(.text.Nrf_checkRxFlag)
+    [Anonymous Symbol]                       0x08000630   Section        0  nrf.o(.text.Nrf_checkTxFlag)
+    [Anonymous Symbol]                       0x080006a8   Section        0  nrf.o(.text.Nrf_csn)
+    [Anonymous Symbol]                       0x080006cc   Section        0  nrf.o(.text.Nrf_flushRx)
+    [Anonymous Symbol]                       0x080006f8   Section        0  nrf.o(.text.Nrf_flushTx)
+    [Anonymous Symbol]                       0x08000724   Section        0  nrf.o(.text.Nrf_init)
+    [Anonymous Symbol]                       0x08000814   Section        0  nrf.o(.text.Nrf_openWritingPipe)
+    [Anonymous Symbol]                       0x08000848   Section        0  nrf.o(.text.Nrf_readByte)
+    [Anonymous Symbol]                       0x08000884   Section        0  nrf.o(.text.Nrf_receive)
+    [Anonymous Symbol]                       0x080008d0   Section        0  nrf.o(.text.Nrf_setGpioCe)
+    [Anonymous Symbol]                       0x080008e8   Section        0  nrf.o(.text.Nrf_setGpioCsn)
+    [Anonymous Symbol]                       0x08000900   Section        0  nrf.o(.text.Nrf_setGpioSpi)
+    [Anonymous Symbol]                       0x08000918   Section        0  nrf.o(.text.Nrf_setSpi)
+    [Anonymous Symbol]                       0x0800092c   Section        0  nrf.o(.text.Nrf_startRxMode)
+    [Anonymous Symbol]                       0x0800094c   Section        0  nrf.o(.text.Nrf_startTxMode)
+    [Anonymous Symbol]                       0x08000968   Section        0  nrf.o(.text.Nrf_stopRxMode)
+    [Anonymous Symbol]                       0x08000974   Section        0  nrf.o(.text.Nrf_transmit)
+    [Anonymous Symbol]                       0x080009d4   Section        0  nrf.o(.text.Nrf_writeByte)
+    [Anonymous Symbol]                       0x08000a18   Section        0  nrf.o(.text.Nrf_writePage)
+    [Anonymous Symbol]                       0x08000a70   Section        0  rcc.o(.text.Rcc_enableClock)
+    [Anonymous Symbol]                       0x08000bd8   Section        0  scheduler.o(.text.Scheduler_addTask)
+    [Anonymous Symbol]                       0x08000c18   Section        0  schedulerconfig.o(.text.Scheduler_delaySoftwareUs)
+    [Anonymous Symbol]                       0x08000c48   Section        0  scheduler.o(.text.Scheduler_deleteTask)
+    [Anonymous Symbol]                       0x08000c74   Section        0  scheduler.o(.text.Scheduler_dispatchTasks)
+    [Anonymous Symbol]                       0x08000cc0   Section        0  schedulerconfig.o(.text.Scheduler_displayError)
+    [Anonymous Symbol]                       0x08000cd4   Section        0  scheduler.o(.text.Scheduler_goToSleep)
+    [Anonymous Symbol]                       0x08000d08   Section        0  scheduler.o(.text.Scheduler_init)
+    [Anonymous Symbol]                       0x08000d2c   Section        0  schedulerconfig.o(.text.Scheduler_initSysTick)
+    [Anonymous Symbol]                       0x08000d54   Section        0  scheduler.o(.text.Scheduler_reportStatus)
+    [Anonymous Symbol]                       0x08000d78   Section        0  schedulerconfig.o(.text.Scheduler_sleepHardware)
+    [Anonymous Symbol]                       0x08000d7c   Section        0  scheduler.o(.text.Scheduler_start)
+    [Anonymous Symbol]                       0x08000d88   Section        0  scheduler.o(.text.Scheduler_update)
+    SetSysClock                              0x08000dc9   Thumb Code     8  system_stm32f10x.o(.text.SetSysClock)
+    [Anonymous Symbol]                       0x08000dc8   Section        0  system_stm32f10x.o(.text.SetSysClock)
+    SetSysClockTo72                          0x08000dd1   Thumb Code   190  system_stm32f10x.o(.text.SetSysClockTo72)
+    [Anonymous Symbol]                       0x08000dd0   Section        0  system_stm32f10x.o(.text.SetSysClockTo72)
+    [Anonymous Symbol]                       0x08000e90   Section        0  spi.o(.text.Spi_init)
+    [Anonymous Symbol]                       0x08000eb0   Section        0  spi.o(.text.Spi_transfer)
+    [Anonymous Symbol]                       0x08000ed8   Section        0  main.o(.text.SysTick_Handler)
+    [Anonymous Symbol]                       0x08000ee0   Section        0  system_stm32f10x.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x08000f38   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x08000f3c   Section        0  main.o(.text.serverTask)
+    spi                                      0x08001038   Data           8  spi.o(.rodata.cst8)
+    gpio                                     0x08001040   Data          12  gpio.o(.rodata.gpio)
+    [Anonymous Symbol]                       0x08001040   Section        0  gpio.o(.rodata.gpio)
     .bss                                     0x20000000   Section       96  libspace.o(.bss)
-    scheduler                                0x20000060   Data         168  scheduler.o(.bss.scheduler)
-    [Anonymous Symbol]                       0x20000060   Section        0  scheduler.o(.bss.scheduler)
-    Heap_Mem                                 0x20000108   Data         512  startup_stm32f10x_md.o(HEAP)
-    HEAP                                     0x20000108   Section      512  startup_stm32f10x_md.o(HEAP)
-    Stack_Mem                                0x20000308   Data        1024  startup_stm32f10x_md.o(STACK)
-    STACK                                    0x20000308   Section     1024  startup_stm32f10x_md.o(STACK)
-    __initial_sp                             0x20000708   Data           0  startup_stm32f10x_md.o(STACK)
+    led                                      0x20000060   Data           6  led.o(.bss.led)
+    [Anonymous Symbol]                       0x20000060   Section        0  led.o(.bss.led)
+    ledTask                                  0x20000066   Data          12  ledtask.o(.bss.ledTask)
+    [Anonymous Symbol]                       0x20000066   Section        0  ledtask.o(.bss.ledTask)
+    nrf                                      0x20000072   Data          12  nrf.o(.bss.nrf)
+    [Anonymous Symbol]                       0x20000072   Section        0  nrf.o(.bss.nrf)
+    nrfTaskMaster                            0x2000007e   Data          80  nrftask.o(.bss.nrfTaskMaster)
+    [Anonymous Symbol]                       0x2000007e   Section        0  nrftask.o(.bss.nrfTaskMaster)
+    nrfTaskSlave                             0x200000ce   Data          20  nrftask.o(.bss.nrfTaskSlave)
+    [Anonymous Symbol]                       0x200000ce   Section        0  nrftask.o(.bss.nrfTaskSlave)
+    scheduler                                0x200000e4   Data         168  scheduler.o(.bss.scheduler)
+    [Anonymous Symbol]                       0x200000e4   Section        0  scheduler.o(.bss.scheduler)
+    Heap_Mem                                 0x20000190   Data         512  startup_stm32f10x_md.o(HEAP)
+    HEAP                                     0x20000190   Section      512  startup_stm32f10x_md.o(HEAP)
+    Stack_Mem                                0x20000390   Data        1024  startup_stm32f10x_md.o(STACK)
+    STACK                                    0x20000390   Section     1024  startup_stm32f10x_md.o(STACK)
+    __initial_sp                             0x20000790   Data           0  startup_stm32f10x_md.o(STACK)
 
     Global Symbols
 
@@ -1294,12 +1301,61 @@ Image Symbol Table
     __I$use$semihosting                      0x08000225   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x08000225   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x08000227   Thumb Code     0  indicate_semi.o(.text)
-    Scheduler_update                         0x08000229   Thumb Code    64  scheduler.o(.text.Scheduler_update)
-    SysTick_Handler                          0x08000331   Thumb Code     8  main.o(.text.SysTick_Handler)
-    SystemInit                               0x08000339   Thumb Code    86  system_stm32f10x.o(.text.SystemInit)
-    main                                     0x08000391   Thumb Code     4  main.o(.text.main)
-    Region$$Table$$Base                      0x08000394   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080003a4   Number         0  anon$$obj.o(Region$$Table)
+    Afio_disableJTAG                         0x08000229   Thumb Code    16  afio.o(.text.Afio_disableJTAG)
+    Gpio_initPin                             0x08000239   Thumb Code    52  gpio.o(.text.Gpio_initPin)
+    Gpio_setPinState                         0x0800026d   Thumb Code    38  gpio.o(.text.Gpio_setPinState)
+    LedTask_init                             0x08000295   Thumb Code    32  ledtask.o(.text.LedTask_init)
+    LedTask_setState                         0x080002b5   Thumb Code    38  ledtask.o(.text.LedTask_setState)
+    LedTask_update                           0x080002dd   Thumb Code    88  ledtask.o(.text.LedTask_update)
+    Led_init                                 0x08000335   Thumb Code    32  led.o(.text.Led_init)
+    Led_setGpio                              0x08000355   Thumb Code    24  led.o(.text.Led_setGpio)
+    Led_setState                             0x0800036d   Thumb Code    30  led.o(.text.Led_setState)
+    NrfTaskMaster_clearRxBuffer              0x0800038d   Thumb Code    48  nrftask.o(.text.NrfTaskMaster_clearRxBuffer)
+    NrfTaskMaster_clearTxBuffer              0x080003bd   Thumb Code    48  nrftask.o(.text.NrfTaskMaster_clearTxBuffer)
+    NrfTaskMaster_init                       0x080003ed   Thumb Code   114  nrftask.o(.text.NrfTaskMaster_init)
+    NrfTaskMaster_update                     0x08000461   Thumb Code   364  nrftask.o(.text.NrfTaskMaster_update)
+    NrfTaskSlave_setNodeNumber               0x080005cd   Thumb Code    20  nrftask.o(.text.NrfTaskSlave_setNodeNumber)
+    Nrf_ce                                   0x080005e1   Thumb Code    36  nrf.o(.text.Nrf_ce)
+    Nrf_checkRxFlag                          0x08000605   Thumb Code    42  nrf.o(.text.Nrf_checkRxFlag)
+    Nrf_checkTxFlag                          0x08000631   Thumb Code   120  nrf.o(.text.Nrf_checkTxFlag)
+    Nrf_csn                                  0x080006a9   Thumb Code    36  nrf.o(.text.Nrf_csn)
+    Nrf_flushRx                              0x080006cd   Thumb Code    44  nrf.o(.text.Nrf_flushRx)
+    Nrf_flushTx                              0x080006f9   Thumb Code    44  nrf.o(.text.Nrf_flushTx)
+    Nrf_init                                 0x08000725   Thumb Code   240  nrf.o(.text.Nrf_init)
+    Nrf_openWritingPipe                      0x08000815   Thumb Code    50  nrf.o(.text.Nrf_openWritingPipe)
+    Nrf_readByte                             0x08000849   Thumb Code    60  nrf.o(.text.Nrf_readByte)
+    Nrf_receive                              0x08000885   Thumb Code    74  nrf.o(.text.Nrf_receive)
+    Nrf_setGpioCe                            0x080008d1   Thumb Code    22  nrf.o(.text.Nrf_setGpioCe)
+    Nrf_setGpioCsn                           0x080008e9   Thumb Code    22  nrf.o(.text.Nrf_setGpioCsn)
+    Nrf_setGpioSpi                           0x08000901   Thumb Code    22  nrf.o(.text.Nrf_setGpioSpi)
+    Nrf_setSpi                               0x08000919   Thumb Code    20  nrf.o(.text.Nrf_setSpi)
+    Nrf_startRxMode                          0x0800092d   Thumb Code    32  nrf.o(.text.Nrf_startRxMode)
+    Nrf_startTxMode                          0x0800094d   Thumb Code    26  nrf.o(.text.Nrf_startTxMode)
+    Nrf_stopRxMode                           0x08000969   Thumb Code    10  nrf.o(.text.Nrf_stopRxMode)
+    Nrf_transmit                             0x08000975   Thumb Code    94  nrf.o(.text.Nrf_transmit)
+    Nrf_writeByte                            0x080009d5   Thumb Code    66  nrf.o(.text.Nrf_writeByte)
+    Nrf_writePage                            0x08000a19   Thumb Code    88  nrf.o(.text.Nrf_writePage)
+    Rcc_enableClock                          0x08000a71   Thumb Code   360  rcc.o(.text.Rcc_enableClock)
+    Scheduler_addTask                        0x08000bd9   Thumb Code    64  scheduler.o(.text.Scheduler_addTask)
+    Scheduler_delaySoftwareUs                0x08000c19   Thumb Code    48  schedulerconfig.o(.text.Scheduler_delaySoftwareUs)
+    Scheduler_deleteTask                     0x08000c49   Thumb Code    44  scheduler.o(.text.Scheduler_deleteTask)
+    Scheduler_dispatchTasks                  0x08000c75   Thumb Code    74  scheduler.o(.text.Scheduler_dispatchTasks)
+    Scheduler_displayError                   0x08000cc1   Thumb Code    18  schedulerconfig.o(.text.Scheduler_displayError)
+    Scheduler_goToSleep                      0x08000cd5   Thumb Code    52  scheduler.o(.text.Scheduler_goToSleep)
+    Scheduler_init                           0x08000d09   Thumb Code    36  scheduler.o(.text.Scheduler_init)
+    Scheduler_initSysTick                    0x08000d2d   Thumb Code    40  schedulerconfig.o(.text.Scheduler_initSysTick)
+    Scheduler_reportStatus                   0x08000d55   Thumb Code    34  scheduler.o(.text.Scheduler_reportStatus)
+    Scheduler_sleepHardware                  0x08000d79   Thumb Code     2  schedulerconfig.o(.text.Scheduler_sleepHardware)
+    Scheduler_start                          0x08000d7d   Thumb Code    10  scheduler.o(.text.Scheduler_start)
+    Scheduler_update                         0x08000d89   Thumb Code    64  scheduler.o(.text.Scheduler_update)
+    Spi_init                                 0x08000e91   Thumb Code    30  spi.o(.text.Spi_init)
+    Spi_transfer                             0x08000eb1   Thumb Code    38  spi.o(.text.Spi_transfer)
+    SysTick_Handler                          0x08000ed9   Thumb Code     8  main.o(.text.SysTick_Handler)
+    SystemInit                               0x08000ee1   Thumb Code    86  system_stm32f10x.o(.text.SystemInit)
+    main                                     0x08000f39   Thumb Code     4  main.o(.text.main)
+    serverTask                               0x08000f3d   Thumb Code   250  main.o(.text.serverTask)
+    Region$$Table$$Base                      0x0800104c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800105c   Number         0  anon$$obj.o(Region$$Table)
     __libspace_start                         0x20000000   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x20000060   Data           0  libspace.o(.bss)
 
@@ -1311,9 +1367,9 @@ Memory Map of the image
 
   Image Entry point : 0x0800016d
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x000003a4, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x0000105c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000003a4, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000105c, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1373,30 +1429,110 @@ Memory Map of the image
     0x08000224   0x08000224   0x00000002   Code   RO          608    .text               c_w.l(use_no_semi.o)
     0x08000226   0x08000226   0x00000000   Code   RO          610    .text               c_w.l(indicate_semi.o)
     0x08000226   0x08000226   0x00000002   PAD
-    0x08000228   0x08000228   0x00000040   Code   RO           58    .text.Scheduler_update  scheduler.o
-    0x08000268   0x08000268   0x00000008   Code   RO          464    .text.SetSysClock   system_stm32f10x.o
-    0x08000270   0x08000270   0x000000be   Code   RO          468    .text.SetSysClockTo72  system_stm32f10x.o
-    0x0800032e   0x0800032e   0x00000002   PAD
-    0x08000330   0x08000330   0x00000008   Code   RO            2    .text.SysTick_Handler  main.o
-    0x08000338   0x08000338   0x00000056   Code   RO          462    .text.SystemInit    system_stm32f10x.o
-    0x0800038e   0x0800038e   0x00000002   PAD
-    0x08000390   0x08000390   0x00000004   Code   RO            4    .text.main          main.o
-    0x08000394   0x08000394   0x00000010   Data   RO          666    Region$$Table       anon$$obj.o
+    0x08000228   0x08000228   0x00000010   Code   RO           99    .text.Afio_disableJTAG  afio.o
+    0x08000238   0x08000238   0x00000034   Code   RO           80    .text.Gpio_initPin  gpio.o
+    0x0800026c   0x0800026c   0x00000026   Code   RO           82    .text.Gpio_setPinState  gpio.o
+    0x08000292   0x08000292   0x00000002   PAD
+    0x08000294   0x08000294   0x00000020   Code   RO          200    .text.LedTask_init  ledtask.o
+    0x080002b4   0x080002b4   0x00000026   Code   RO          202    .text.LedTask_setState  ledtask.o
+    0x080002da   0x080002da   0x00000002   PAD
+    0x080002dc   0x080002dc   0x00000058   Code   RO          204    .text.LedTask_update  ledtask.o
+    0x08000334   0x08000334   0x00000020   Code   RO          185    .text.Led_init      led.o
+    0x08000354   0x08000354   0x00000018   Code   RO          189    .text.Led_setGpio   led.o
+    0x0800036c   0x0800036c   0x0000001e   Code   RO          187    .text.Led_setState  led.o
+    0x0800038a   0x0800038a   0x00000002   PAD
+    0x0800038c   0x0800038c   0x00000030   Code   RO          330    .text.NrfTaskMaster_clearRxBuffer  nrftask.o
+    0x080003bc   0x080003bc   0x00000030   Code   RO          328    .text.NrfTaskMaster_clearTxBuffer  nrftask.o
+    0x080003ec   0x080003ec   0x00000072   Code   RO          326    .text.NrfTaskMaster_init  nrftask.o
+    0x0800045e   0x0800045e   0x00000002   PAD
+    0x08000460   0x08000460   0x0000016c   Code   RO          334    .text.NrfTaskMaster_update  nrftask.o
+    0x080005cc   0x080005cc   0x00000014   Code   RO          342    .text.NrfTaskSlave_setNodeNumber  nrftask.o
+    0x080005e0   0x080005e0   0x00000024   Code   RO          263    .text.Nrf_ce        nrf.o
+    0x08000604   0x08000604   0x0000002a   Code   RO          295    .text.Nrf_checkRxFlag  nrf.o
+    0x0800062e   0x0800062e   0x00000002   PAD
+    0x08000630   0x08000630   0x00000078   Code   RO          293    .text.Nrf_checkTxFlag  nrf.o
+    0x080006a8   0x080006a8   0x00000024   Code   RO          265    .text.Nrf_csn       nrf.o
+    0x080006cc   0x080006cc   0x0000002c   Code   RO          273    .text.Nrf_flushRx   nrf.o
+    0x080006f8   0x080006f8   0x0000002c   Code   RO          271    .text.Nrf_flushTx   nrf.o
+    0x08000724   0x08000724   0x000000f0   Code   RO          261    .text.Nrf_init      nrf.o
+    0x08000814   0x08000814   0x00000032   Code   RO          305    .text.Nrf_openWritingPipe  nrf.o
+    0x08000846   0x08000846   0x00000002   PAD
+    0x08000848   0x08000848   0x0000003c   Code   RO          269    .text.Nrf_readByte  nrf.o
+    0x08000884   0x08000884   0x0000004a   Code   RO          299    .text.Nrf_receive   nrf.o
+    0x080008ce   0x080008ce   0x00000002   PAD
+    0x080008d0   0x080008d0   0x00000016   Code   RO          275    .text.Nrf_setGpioCe  nrf.o
+    0x080008e6   0x080008e6   0x00000002   PAD
+    0x080008e8   0x080008e8   0x00000016   Code   RO          277    .text.Nrf_setGpioCsn  nrf.o
+    0x080008fe   0x080008fe   0x00000002   PAD
+    0x08000900   0x08000900   0x00000016   Code   RO          279    .text.Nrf_setGpioSpi  nrf.o
+    0x08000916   0x08000916   0x00000002   PAD
+    0x08000918   0x08000918   0x00000014   Code   RO          281    .text.Nrf_setSpi    nrf.o
+    0x0800092c   0x0800092c   0x00000020   Code   RO          289    .text.Nrf_startRxMode  nrf.o
+    0x0800094c   0x0800094c   0x0000001a   Code   RO          287    .text.Nrf_startTxMode  nrf.o
+    0x08000966   0x08000966   0x00000002   PAD
+    0x08000968   0x08000968   0x0000000a   Code   RO          291    .text.Nrf_stopRxMode  nrf.o
+    0x08000972   0x08000972   0x00000002   PAD
+    0x08000974   0x08000974   0x0000005e   Code   RO          297    .text.Nrf_transmit  nrf.o
+    0x080009d2   0x080009d2   0x00000002   PAD
+    0x080009d4   0x080009d4   0x00000042   Code   RO          267    .text.Nrf_writeByte  nrf.o
+    0x08000a16   0x08000a16   0x00000002   PAD
+    0x08000a18   0x08000a18   0x00000058   Code   RO          283    .text.Nrf_writePage  nrf.o
+    0x08000a70   0x08000a70   0x00000168   Code   RO           71    .text.Rcc_enableClock  rcc.o
+    0x08000bd8   0x08000bd8   0x00000040   Code   RO           50    .text.Scheduler_addTask  scheduler.o
+    0x08000c18   0x08000c18   0x00000030   Code   RO           36    .text.Scheduler_delaySoftwareUs  schedulerconfig.o
+    0x08000c48   0x08000c48   0x0000002c   Code   RO           48    .text.Scheduler_deleteTask  scheduler.o
+    0x08000c74   0x08000c74   0x0000004a   Code   RO           60    .text.Scheduler_dispatchTasks  scheduler.o
+    0x08000cbe   0x08000cbe   0x00000002   PAD
+    0x08000cc0   0x08000cc0   0x00000012   Code   RO           26    .text.Scheduler_displayError  schedulerconfig.o
+    0x08000cd2   0x08000cd2   0x00000002   PAD
+    0x08000cd4   0x08000cd4   0x00000034   Code   RO           56    .text.Scheduler_goToSleep  scheduler.o
+    0x08000d08   0x08000d08   0x00000024   Code   RO           46    .text.Scheduler_init  scheduler.o
+    0x08000d2c   0x08000d2c   0x00000028   Code   RO           24    .text.Scheduler_initSysTick  schedulerconfig.o
+    0x08000d54   0x08000d54   0x00000022   Code   RO           54    .text.Scheduler_reportStatus  scheduler.o
+    0x08000d76   0x08000d76   0x00000002   PAD
+    0x08000d78   0x08000d78   0x00000002   Code   RO           28    .text.Scheduler_sleepHardware  schedulerconfig.o
+    0x08000d7a   0x08000d7a   0x00000002   PAD
+    0x08000d7c   0x08000d7c   0x0000000a   Code   RO           52    .text.Scheduler_start  scheduler.o
+    0x08000d86   0x08000d86   0x00000002   PAD
+    0x08000d88   0x08000d88   0x00000040   Code   RO           58    .text.Scheduler_update  scheduler.o
+    0x08000dc8   0x08000dc8   0x00000008   Code   RO          464    .text.SetSysClock   system_stm32f10x.o
+    0x08000dd0   0x08000dd0   0x000000be   Code   RO          468    .text.SetSysClockTo72  system_stm32f10x.o
+    0x08000e8e   0x08000e8e   0x00000002   PAD
+    0x08000e90   0x08000e90   0x0000001e   Code   RO          142    .text.Spi_init      spi.o
+    0x08000eae   0x08000eae   0x00000002   PAD
+    0x08000eb0   0x08000eb0   0x00000026   Code   RO          144    .text.Spi_transfer  spi.o
+    0x08000ed6   0x08000ed6   0x00000002   PAD
+    0x08000ed8   0x08000ed8   0x00000008   Code   RO            2    .text.SysTick_Handler  main.o
+    0x08000ee0   0x08000ee0   0x00000056   Code   RO          462    .text.SystemInit    system_stm32f10x.o
+    0x08000f36   0x08000f36   0x00000002   PAD
+    0x08000f38   0x08000f38   0x00000004   Code   RO            4    .text.main          main.o
+    0x08000f3c   0x08000f3c   0x000000fa   Code   RO            6    .text.serverTask    main.o
+    0x08001036   0x08001036   0x00000002   PAD
+    0x08001038   0x08001038   0x00000008   Data   RO          146    .rodata.cst8        spi.o
+    0x08001040   0x08001040   0x0000000c   Data   RO           90    .rodata.gpio        gpio.o
+    0x0800104c   0x0800104c   0x00000010   Data   RO          666    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x080003a4, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x0800105c, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x080003a4, Size: 0x00000708, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x0800105c, Size: 0x00000790, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000        -       0x00000060   Zero   RW          533    .bss                c_w.l(libspace.o)
-    0x20000060        -       0x000000a8   Zero   RW           62    .bss.scheduler      scheduler.o
-    0x20000108        -       0x00000200   Zero   RW          453    HEAP                startup_stm32f10x_md.o
-    0x20000308        -       0x00000400   Zero   RW          452    STACK               startup_stm32f10x_md.o
+    0x20000060        -       0x00000006   Zero   RW          191    .bss.led            led.o
+    0x20000066        -       0x0000000c   Zero   RW          206    .bss.ledTask        ledtask.o
+    0x20000072        -       0x0000000c   Zero   RW          317    .bss.nrf            nrf.o
+    0x2000007e        -       0x00000050   Zero   RW          350    .bss.nrfTaskMaster  nrftask.o
+    0x200000ce        -       0x00000014   Zero   RW          351    .bss.nrfTaskSlave   nrftask.o
+    0x200000e2   0x0800105c   0x00000002   PAD
+    0x200000e4        -       0x000000a8   Zero   RW           62    .bss.scheduler      scheduler.o
+    0x2000018c   0x0800105c   0x00000004   PAD
+    0x20000190        -       0x00000200   Zero   RW          453    HEAP                startup_stm32f10x_md.o
+    0x20000390        -       0x00000400   Zero   RW          452    STACK               startup_stm32f10x_md.o
 
 
 ==============================================================================
@@ -1406,15 +1542,24 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        12          0          0          0          0       2892   main.o
-        64          0          0          0        168       2392   scheduler.o
+        16          0          0          0          0        891   afio.o
+        90          0         12          0          0       1884   gpio.o
+        86          0          0          0          6       1458   led.o
+       158          0          0          0         12       1379   ledtask.o
+       262          0          0          0          0       2938   main.o
+      1148          0          0          0         12       7699   nrf.o
+       594          6          0          0        100       3956   nrftask.o
+       360          0          0          0          0       3255   rcc.o
+       378          0          0          0        168       2392   scheduler.o
+       108          0          0          0          0       1779   schedulerconfig.o
+        68          0          8          0          0       1490   spi.o
         64         26        236          0       1536        836   startup_stm32f10x_md.o
        284          0          0          0          0       2826   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-       428         26        252          0       1704       8946   Object Totals
+      3664         32        272          0       1840      32783   Object Totals
          0          0         16          0          0          0   (incl. Generated)
-         4          0          0          0          0          0   (incl. Padding)
+        48          0          0          0          6          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1460,15 +1605,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       680         42        252          0       1800       9322   Grand Totals
-       680         42        252          0       1800       9322   ELF Image Totals
-       680         42        252          0          0          0   ROM Totals
+      3916         48        272          0       1936      33015   Grand Totals
+      3916         48        272          0       1936      33015   ELF Image Totals
+      3916         48        272          0          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                  932 (   0.91kB)
-    Total RW  Size (RW Data + ZI Data)              1800 (   1.76kB)
-    Total ROM Size (Code + RO Data + RW Data)        932 (   0.91kB)
+    Total RO  Size (Code + RO Data)                 4188 (   4.09kB)
+    Total RW  Size (RW Data + ZI Data)              1936 (   1.89kB)
+    Total ROM Size (Code + RO Data + RW Data)       4188 (   4.09kB)
 
 ==============================================================================
 

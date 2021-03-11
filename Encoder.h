@@ -5,7 +5,7 @@
 #include "Gpio.h"
 #include "Timer.h"
 
-void Encoder_init( void );
+void Encoder_init( Id_t id );
 UBaseType_t Encoder_getSpeed( Id_t id );
 void Encoder_reset( Id_t id );
 void Encoder_setGpio( Id_t id, Id_t gpio_id, uint8_t pin );

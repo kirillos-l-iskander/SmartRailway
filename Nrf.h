@@ -104,7 +104,7 @@ typedef enum { RF24_PA_MIN = 0,RF24_PA_LOW, RF24_PA_HIGH, RF24_PA_MAX, RF24_PA_E
 typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
 typedef enum { RF24_CRC_DISABLED = 0, RF24_CRC_8, RF24_CRC_16 } rf24_crclength_e;
 
-void Nrf_init( void );
+void Nrf_init( Id_t id );
 void Nrf_setGpioCe( Id_t id, Id_t gpio_id, uint8_t pin );
 void Nrf_setGpioCsn( Id_t id, Id_t gpio_id, uint8_t pin );
 void Nrf_setGpioSpi( Id_t id, Id_t gpio_id, uint8_t pin );
