@@ -1,129 +1,97 @@
-#include "LCD.h"
+#include "Lcd.h"
 
-static const uint8_t LCD_RowAddress_G[] = {0x80, 0xC0, 0x90, 0xD0};
-static uint8_t LCD_Buff_G[ROW_NUM][COL_NUM] = {{0}};
-static uint8_t LCD_ReadingRowIndex_G;
-static uint8_t LCD_ReadingColumnIndex_G;
-
-void LCD_Init(void)
+typedef struct
 {
-  LCD_ReadingRowIndex_G = 0;
-  LCD_ReadingColumnIndex_G = 0;
-	LCD_ClearBuffer();
-	GPIO_InitPin(LCD_COM_REG, RS, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_COM_REG, E, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D0, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D1, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D2, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D3, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D4, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D5, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D6, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-	GPIO_InitPin(LCD_DAT_REG, D7, GPIO_Mode_Out_PP | GPIO_Speed_2MHz);
-  LCD_SendCommand(RETURN_HOME);
-  LCD_SendCommand(DISPLAY_2_LINES_5x7_MATRIX_8_BIT);
-  LCD_SendCommand(DISPLAY_ON_CURSOR_OFF);
-  LCD_SendCommand(INCREMENT_CURSOR);
-  LCD_Clear();
-}
+	Id_t rs_gpio_id;
+	uint8_t pinRs;
+	Id_t rw_gpio_id;
+	uint8_t pinRw;
+	Id_t e_gpio_id;
+	uint8_t pinE;
+	Id_t d0_gpio_id;
+	uint8_t pinD0;
+}Lcd_t;
 
-void LCD_Update(void)
-{
-    //LCD_SetCursor(LCD_ReadingRowIndex_G, LCD_ReadingColumnIndex_G);
-    LCD_SendCharacter(LCD_Buff_G[LCD_ReadingRowIndex_G][LCD_ReadingColumnIndex_G]);
-    LCD_ReadingColumnIndex_G++;
-    if(LCD_ReadingColumnIndex_G == COL_NUM)
-    {
-        LCD_ReadingColumnIndex_G = 0;
-        LCD_ReadingRowIndex_G++;
-        if(LCD_ReadingRowIndex_G == ROW_NUM)
-        {
-            LCD_ReadingRowIndex_G = 0;
-        }
-    }
-}
+static Lcd_t lcd[ LCD_NUMBER ];
+static uint8_t lcdRowAddress[ 4 ] = { 0x80, 0xC0, 0x90, 0xD0 };
 
-void LCD_SendCommand(uint8_t Comm)
+void Lcd_init( void )
 {
-	GPIO_SetPortState(LCD_DAT_REG, DPINS, (uint16_t)Comm);
-	GPIO_SetPinState(LCD_COM_REG, RS, LOW);
-	GPIO_SetPinState(LCD_COM_REG, E, HIGH);
-  Delay_us(1);
-	GPIO_SetPinState(LCD_COM_REG, E, LOW);
-  Delay_us(100);
-}
-
-void LCD_SendCharacter(uint8_t Char)
-{
-	GPIO_SetPortState(LCD_DAT_REG, DPINS, (uint16_t)Char);
-	GPIO_SetPinState(LCD_COM_REG, RS, HIGH);
-	GPIO_SetPinState(LCD_COM_REG, E, HIGH);
-  Delay_us(1);
-	GPIO_SetPinState(LCD_COM_REG, E, LOW);
-  Delay_us(25);
-}
-
-void LCD_SendString(uint8_t* Str_P)
-{
-	uint8_t Index;
-	for(Index=0; Str_P[Index]!=0; Index++)
+	size_t id = 0;
+	size_t pin = 0;
+	for ( id = 0; id < LCD_NUMBER; id++ )
 	{
-		LCD_SendCharacter(Str_P[Index]);
+		Gpio_initPin( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, OUTPUT );
+		Gpio_initPin( lcd[ id ].e_gpio_id, lcd[ id ].pinE, OUTPUT );
+		for ( pin = lcd[ id ].pinD0; pin < ( lcd[ id ].pinD0 + 8 ); pin++ )
+		{
+			Gpio_initPin( lcd[ id ].d0_gpio_id, pin, OUTPUT );
+		}
+		Lcd_setCommand( (Id_t) id, RETURN_HOME );
+		DELAY_US( 100 );
+		Lcd_setCommand( (Id_t) id, DISPLAY_2_LINES_5x7_MATRIX_8_BIT );
+		DELAY_US( 100 );
+		Lcd_setCommand( (Id_t) id, DISPLAY_ON_CURSOR_OFF );
+		Lcd_setCommand( (Id_t) id, INCREMENT_CURSOR );
+		DELAY_US( 100 );
+		Lcd_clear( (Id_t) id );
 	}
 }
 
-void LCD_SetCursor(uint8_t Row, uint8_t Col)
+void Lcd_setCommand( Id_t id, uint8_t command )
 {
-    LCD_SendCommand(LCD_RowAddress_G[Row] | Col);
+	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].pinD0 ), command );
+	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, LOW );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, HIGH );
+	DELAY_US( 1 );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, LOW );
+	DELAY_US( 50 );
 }
 
-void LCD_Clear(void)
+void Lcd_setCharacter( Id_t id, uint8_t character )
 {
-	LCD_SendCommand(CLEAR_DISPLAY);
-	LCD_SendCommand(FORCE_CURSOR_HOME);
-  Delay_us(2000);
+	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].pinD0 ), character );
+	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, HIGH );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, HIGH );
+	DELAY_US( 1 );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, LOW );
 }
 
-void LCD_SetCharacterBuffer(uint8_t Char, uint8_t Row, uint8_t Col)
+void Lcd_setString( Id_t id, uint8_t *string )
 {
-    LCD_Buff_G[Row][Col] = Char;
+	size_t index = 0;
+	for( index = 0; string[ index ] != 0; index++ )
+	{
+		Lcd_setCharacter( id, string[ index ] );
+	}
 }
 
-void LCD_SetStringBuffer(uint8_t* Str_P, uint8_t Row, uint8_t Col)
+void Lcd_setCursor( Id_t id, uint8_t row, uint8_t col )
 {
-    uint8_t Index = 0;
-    while(Str_P[Index] != 0)
-    {
-        LCD_Buff_G[Row][Col] = Str_P[Index++];
-        Col++;
-        if(Col == COL_NUM)
-        {
-            Col = 0;
-            Row++;
-            if(Row == ROW_NUM)
-            {
-                Row = 0;
-            }
-        }
-    }
+	Lcd_setCommand( id, lcdRowAddress[ row ] | col );
 }
 
-void LCD_ClearBuffer(void)
+void Lcd_clear( Id_t id )
 {
-    uint8_t Row = 0;
-    uint8_t Col = 0;
-    while(1)
-    {
-        LCD_Buff_G[Row][Col] = ' ';
-        Col++;
-        if(Col == COL_NUM)
-        {
-            Col = 0;
-            Row++;
-            if(Row == ROW_NUM)
-            {
-                break;
-            }
-        }
-    }
+	Lcd_setCommand( id, CLEAR_DISPLAY );
+	Lcd_setCommand( id, FORCE_CURSOR_HOME );
+	DELAY_US( 2000 );
+}
+
+void Lcd_setGpioRs( Id_t id, Id_t gpio_id, uint8_t pin )
+{
+	lcd[ id ].rs_gpio_id = gpio_id;
+	lcd[ id ].pinRs = pin;
+}
+
+void Lcd_setGpioE( Id_t id, Id_t gpio_id, uint8_t pin )
+{
+	lcd[ id ].e_gpio_id = gpio_id;
+	lcd[ id ].pinE = pin;
+}
+
+void Lcd_setGpioD0( Id_t id, Id_t gpio_id, uint8_t pin )
+{
+	lcd[ id ].d0_gpio_id = gpio_id;
+	lcd[ id ].pinD0 = pin;
 }

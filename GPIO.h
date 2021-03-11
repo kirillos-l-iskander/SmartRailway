@@ -1,24 +1,22 @@
-#ifndef GPIO_H
-#define GPIO_H
+#ifndef PORT_H
+#define PORT_H
 
-#include "CONFIG.h"
-#include "IO.h"
-#include "PORT.h"
-#include "CORE.h"
-#include "SCH_CONFIG.h"
-#include "SCH.h"
-#include "GPIO.h"
-#include "AFIO.h"
+#include "SchedulerConfig.h"
 
-#define INPUT (0)
-#define OUTPUT (1)
-#define LOW (0)
-#define HIGH (1)
+#define GPIOA_ID	( 0 )
+#define GPIOB_ID	( 1 )
+#define GPIOC_ID	( 2 )
 
-void GPIO_InitPin(GPIO_TypeDef* GPIOx, uint8_t PINx, uint8_t Mode);
-void GPIO_SetPinState(GPIO_TypeDef* GPIOx, uint8_t PINx, uint8_t State);
-uint8_t GPIO_GetPinState(GPIO_TypeDef* GPIOx, uint8_t PINx);
-void GPIO_SetPortState(GPIO_TypeDef* GPIOx, uint16_t PINx, uint16_t State);
-uint16_t GPIO_GetPortState(GPIO_TypeDef* GPIOx);
+#define INPUT			( GPIO_Mode_IN_FLOATING | GPIO_Input )
+#define OUTPUT		( GPIO_Mode_Out_PP | GPIO_Speed_50MHz )
+#define OUTPUT_AF	( GPIO_Mode_AF_PP | GPIO_Speed_50MHz )
+#define LOW				( 0 )
+#define HIGH			( 1 )
 
-#endif /* GPIO_H */
+void Gpio_initPin( Id_t id, UBaseType_t pin, UBaseType_t mode );
+void Gpio_setPinState( Id_t id, UBaseType_t pin, UBaseType_t state );
+UBaseType_t Gpio_getPinState( Id_t id, UBaseType_t pin );
+void Gpio_setPortState( Id_t id, UBaseType_t pins, UBaseType_t state );
+UBaseType_t Gpio_getPortState( Id_t id, UBaseType_t pins );
+
+#endif /* PORT_H */

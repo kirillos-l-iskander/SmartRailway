@@ -1,46 +1,37 @@
-#include "GPIO.h"
+#include "Gpio.h"
 
-void GPIO_InitPin(GPIO_TypeDef* GPIOx, uint8_t PINx, uint8_t Mode)
+typedef GPIO_TypeDef Gpio_t;
+
+static Gpio_t *gpio[ 3 ] = { GPIOA, GPIOB, GPIOC };
+
+void Gpio_initPin( Id_t id, UBaseType_t pin, UBaseType_t mode )
 {
-	if(GPIOx == GPIOA)
+	if( pin < 8 )
 	{
-		//Enable clock for GPIOA
-		RCC->APB2ENR = RCC->APB2ENR | RCC_APB2Periph_GPIOA;
-	}else if(GPIOx == GPIOB)
-	{
-		//Enable clock for GPIOB
-		RCC->APB2ENR = RCC->APB2ENR | RCC_APB2Periph_GPIOB;
-	}else if(GPIOx == GPIOC)
-	{
-		//Enable clock for GPIOC
-		RCC->APB2ENR = RCC->APB2ENR | RCC_APB2Periph_GPIOC;
-	}
-	if(PINx < 8)
-	{
-		GPIOx->CRL = (GPIOx->CRL & (unsigned)~(0xF<<(PINx*4))) | (unsigned)(Mode<<(PINx*4));
+		gpio[ id ]->CRL = ( gpio[ id ]->CRL & ~( 0xFU << ( pin * 4 ) ) ) | ( ( mode & 0xF ) << ( pin * 4 ) );
 	}else
 	{
-		PINx = PINx - 8;
-		GPIOx->CRH = (GPIOx->CRH & (unsigned)~(0xF<<(PINx*4))) | (unsigned)(Mode<<(PINx*4));	
+		pin = pin - 8;
+		gpio[ id ]->CRH = ( gpio[ id ]->CRH & ~( 0xFU << ( pin * 4 ) ) ) | ( ( mode & 0xF ) << ( pin * 4 ) );	
 	}
 }
 
-void GPIO_SetPinState(GPIO_TypeDef* GPIOx, uint8_t PINx, uint8_t State)
+void Gpio_setPinState( Id_t id, UBaseType_t pin, UBaseType_t state )
 {
-	GPIOx->ODR = (GPIOx->ODR & ~(1<<PINx)) | (unsigned)(State<<PINx);
+	gpio[ id ]->ODR = ( gpio[ id ]->ODR & ~( 1 << pin ) ) | ( ( state & 0x1 ) << pin );
 }
 
-uint8_t GPIO_GetPinState(GPIO_TypeDef* GPIOx, uint8_t PINx)
+UBaseType_t Gpio_getPinState( Id_t id, UBaseType_t pin )
 {
-	return (uint8_t)((GPIOx->IDR & (1<<PINx))>>PINx);
+	return ( ( gpio[ id ]->IDR & ( 1 << pin ) ) >> pin );
 }
 
-void GPIO_SetPortState(GPIO_TypeDef* GPIOx, uint16_t PINx, uint16_t State)
+void Gpio_setPortState( Id_t id, UBaseType_t pins, UBaseType_t state )
 {
-	GPIOx->ODR = (GPIOx->ODR & ~PINx) | (State & PINx);
+	gpio[ id ]->ODR = ( gpio[ id ]->ODR & ~pins ) | ( state & pins );
 }
 
-uint16_t GPIO_GetPortState(GPIO_TypeDef* GPIOx)
+UBaseType_t Gpio_getPortState( Id_t id, UBaseType_t pins )
 {
-	return (uint16_t)GPIOx->IDR;
+	return ( gpio[ id ]->IDR & pins );
 }

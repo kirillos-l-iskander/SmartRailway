@@ -1,42 +1,56 @@
-#include "PID.h"
+#include "Pid.h"
 
-volatile static PID_t PID_G[1];
-
-void PID_Init(void)
+typedef struct
 {
-	PID_G[0].Error = 0;
-	PID_G[0].PreviousError = 0;
-	PID_G[0].Correction = 0;
-	PID_G[0].P = 0;
-	PID_G[0].I = 0;
-	PID_G[0].D = 0;
-	PID_G[0].Kp = 100;
-	PID_G[0].Ki = 0;
-	PID_G[0].Kd = 0;
-}
+	int32_t error;
+	int32_t previousError;
+	int32_t kp;
+	int32_t p;
+	int32_t ki;
+	int32_t i;
+	int32_t kd;
+	int32_t d;
+	int32_t correction;
+}Pid_t;
 
-void PID_Update(void)
-{
-	PID_G[0].P = PID_G[0].Error;
-	PID_G[0].I = PID_G[0].I + PID_G[0].Error;
-	PID_G[0].D = PID_G[0].Error - PID_G[0].PreviousError;
-	PID_G[0].Correction = (PID_G[0].Kp * PID_G[0].P) + (PID_G[0].Ki * PID_G[0].I) + (PID_G[0].Kd * PID_G[0].D);
-	PID_G[0].PreviousError = PID_G[0].Error;
-}
+static Pid_t pid[ PID_NUMBER ];
 
-void PID_SetError(int32_t RequiredState, int32_t CurrentState)
+void Pid_init( void )
 {
-	PID_G[0].Error = RequiredState - CurrentState;
-	if(PID_G[0].Error >= 0)
+	size_t id = 0;
+	for ( id = 0; id < PID_NUMBER; id++ )
 	{
-		PID_G[0].Error = PID_G[0].Error * PID_G[0].Error;
-	}else
-	{
-		PID_G[0].Error = PID_G[0].Error * PID_G[0].Error * -1;
+		pid[ id ].error = 0;
+		pid[ id ].previousError = 0;
+		pid[ id ].kp = 1;
+		pid[ id ].p = 0;
+		pid[ id ].ki = 0;
+		pid[ id ].i = 0;
+		pid[ id ].kd = 0;
+		pid[ id ].d = 0;
+		pid[ id ].correction = 0;
 	}
 }
 
-int32_t PID_GetCorrection(void)
+void Pid_setError( Id_t id, int32_t requiredState, int32_t currentState )
 {
-	return PID_G[0].Correction;
+	pid[ id ].error = requiredState - currentState;
+}
+
+int32_t Pid_getCorrection( Id_t id )
+{
+	return pid[ id ].correction;
+}
+
+void Pid_update( void *paramter )
+{
+	size_t id = 0;
+	for ( id = 0; id < PID_NUMBER; id++ )
+	{
+		pid[ id ].p = pid[ id ].error;
+		pid[ id ].i = pid[ id ].i + pid[ id ].error;
+		pid[ id ].d = pid[ id ].error - pid[ id ].previousError;
+		pid[ id ].correction = ( pid[ id ].kp * pid[ id ].p ) + ( pid[ id ].ki * pid[ id ].i ) + ( pid[ id ].kd * pid[ id ].d );
+		pid[ id ].previousError = pid[ id ].error;
+	}
 }

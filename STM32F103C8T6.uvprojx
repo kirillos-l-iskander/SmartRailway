@@ -384,19 +384,29 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>CONFIG.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\CONFIG.h</FilePath>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>IO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\IO.h</FilePath>
+              <FileName>SchedulerConfig.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SchedulerConfig.c</FilePath>
             </File>
             <File>
-              <FileName>PORT.h</FileName>
+              <FileName>SchedulerConfig.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\PORT.h</FilePath>
+              <FilePath>.\SchedulerConfig.h</FilePath>
+            </File>
+            <File>
+              <FileName>Scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Scheduler.c</FilePath>
+            </File>
+            <File>
+              <FileName>Scheduler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Scheduler.h</FilePath>
             </File>
             <File>
               <FileName>CORE.h</FileName>
@@ -404,159 +414,204 @@
               <FilePath>.\CORE.h</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
+              <FileName>IO.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ADC.h</FilePath>
+              <FilePath>.\IO.h</FilePath>
             </File>
             <File>
-              <FileName>LCD.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\LCD.c</FilePath>
-            </File>
-            <File>
-              <FileName>LCD.h</FileName>
+              <FileName>Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\LCD.h</FilePath>
+              <FilePath>.\Config.h</FilePath>
             </File>
             <File>
-              <FileName>GPIO.c</FileName>
+              <FileName>Rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\GPIO.c</FilePath>
+              <FilePath>.\Rcc.c</FilePath>
             </File>
             <File>
-              <FileName>GPIO.h</FileName>
+              <FileName>Rcc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\GPIO.h</FilePath>
+              <FilePath>.\Rcc.h</FilePath>
             </File>
             <File>
-              <FileName>IR.c</FileName>
+              <FileName>Gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\IR.c</FilePath>
+              <FilePath>.\Gpio.c</FilePath>
             </File>
             <File>
-              <FileName>IR.h</FileName>
+              <FileName>Gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\IR.h</FilePath>
+              <FilePath>.\Gpio.h</FilePath>
             </File>
             <File>
-              <FileName>LED.c</FileName>
+              <FileName>Afio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\LED.c</FilePath>
+              <FilePath>.\Afio.c</FilePath>
             </File>
             <File>
-              <FileName>LED.h</FileName>
+              <FileName>Afio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\LED.h</FilePath>
+              <FilePath>.\Afio.h</FilePath>
             </File>
             <File>
-              <FileName>SPI.c</FileName>
+              <FileName>Timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SPI.c</FilePath>
+              <FilePath>.\Timer.c</FilePath>
             </File>
             <File>
-              <FileName>SPI.h</FileName>
+              <FileName>Timer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SPI.h</FilePath>
+              <FilePath>.\Timer.h</FilePath>
             </File>
             <File>
-              <FileName>NRF24L01+.c</FileName>
+              <FileName>Adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\NRF24L01+.c</FilePath>
+              <FilePath>.\Adc.c</FilePath>
             </File>
             <File>
-              <FileName>NRF24L01+.h</FileName>
+              <FileName>Adc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\NRF24L01+.h</FilePath>
+              <FilePath>.\Adc.h</FilePath>
             </File>
             <File>
-              <FileName>AFIO.c</FileName>
+              <FileName>Spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\AFIO.c</FilePath>
+              <FilePath>.\Spi.c</FilePath>
             </File>
             <File>
-              <FileName>AFIO.h</FileName>
+              <FileName>Spi.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\AFIO.h</FilePath>
+              <FilePath>.\Spi.h</FilePath>
             </File>
             <File>
-              <FileName>TR.c</FileName>
+              <FileName>Infrared.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\TR.c</FilePath>
+              <FilePath>.\Infrared.c</FilePath>
             </File>
             <File>
-              <FileName>TR.h</FileName>
+              <FileName>Infrared.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\TR.h</FilePath>
+              <FilePath>.\Infrared.h</FilePath>
             </File>
             <File>
-              <FileName>PID.c</FileName>
+              <FileName>InfraredTask.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\PID.c</FilePath>
+              <FilePath>.\InfraredTask.c</FilePath>
             </File>
             <File>
-              <FileName>PID.h</FileName>
+              <FileName>InfraredTask.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\PID.h</FilePath>
+              <FilePath>.\InfraredTask.h</FilePath>
             </File>
             <File>
-              <FileName>TIM.c</FileName>
+              <FileName>Led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\TIM.c</FilePath>
+              <FilePath>.\Led.c</FilePath>
             </File>
             <File>
-              <FileName>TIM.h</FileName>
+              <FileName>Led.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\TIM.h</FilePath>
+              <FilePath>.\Led.h</FilePath>
             </File>
             <File>
-              <FileName>ST.c</FileName>
+              <FileName>LedTask.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ST.c</FilePath>
+              <FilePath>.\LedTask.c</FilePath>
             </File>
             <File>
-              <FileName>ST.h</FileName>
+              <FileName>LedTask.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ST.h</FilePath>
+              <FilePath>.\LedTask.h</FilePath>
             </File>
             <File>
-              <FileName>SCH.c</FileName>
+              <FileName>Lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SCH.c</FilePath>
+              <FilePath>.\Lcd.c</FilePath>
             </File>
             <File>
-              <FileName>SCH.h</FileName>
+              <FileName>Lcd.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SCH.h</FilePath>
+              <FilePath>.\Lcd.h</FilePath>
             </File>
             <File>
-              <FileName>SCH_CONFIG.c</FileName>
+              <FileName>LcdTask.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SCH_CONFIG.c</FilePath>
+              <FilePath>.\LcdTask.c</FilePath>
             </File>
             <File>
-              <FileName>SCH_CONFIG.h</FileName>
+              <FileName>LcdTask.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SCH_CONFIG.h</FilePath>
+              <FilePath>.\LcdTask.h</FilePath>
             </File>
             <File>
-              <FileName>SR.c</FileName>
+              <FileName>Nrf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\SR.c</FilePath>
+              <FilePath>.\Nrf.c</FilePath>
             </File>
             <File>
-              <FileName>SR.h</FileName>
+              <FileName>Nrf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\SR.h</FilePath>
+              <FilePath>.\Nrf.h</FilePath>
+            </File>
+            <File>
+              <FileName>NrfTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\NrfTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>NrfTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\NrfTask.h</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Encoder.h</FilePath>
+            </File>
+            <File>
+              <FileName>Pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Pid.h</FilePath>
+            </File>
+            <File>
+              <FileName>Motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>Motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>Station.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Station.c</FilePath>
+            </File>
+            <File>
+              <FileName>Station.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Station.h</FilePath>
+            </File>
+            <File>
+              <FileName>Train.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Train.c</FilePath>
+            </File>
+            <File>
+              <FileName>Train.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Train.h</FilePath>
             </File>
           </Files>
         </Group>

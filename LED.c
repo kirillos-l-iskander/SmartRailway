@@ -1,23 +1,32 @@
-#include "LED.h"
+#include "Led.h"
 
-volatile static LED_t LED_G[1];
-
-void LED_Init(void)
+typedef struct
 {
-	GPIO_InitPin(LED_REG, LED0, GPIO_Mode_Out_PP | GPIO_Speed_50MHz);
-}
+	Id_t gpio_id;
+	uint8_t pin;
+	uint8_t state;
+}Led_t;
 
-void LED_Update(void)
-{
-	GPIO_SetPinState(LED_REG, LED0, !LED_G[0].State);
-}
+volatile static Led_t led[ LED_NUMBER ];
 
-void LED_SetState(uint8_t LEDx, uint8_t State)
+void Led_init( void )
 {
-	switch(LEDx)
+	size_t id = 0;
+	for ( id = 0; id < LED_NUMBER; id++ )
 	{
-		case LED0:
-			LED_G[0].State = State & 0x01;
-			break;
+		led[ id ].state = LOW;
+		Gpio_initPin( led[ id ].gpio_id, led[ id ].pin, OUTPUT );
 	}
+}
+
+void Led_setState( uint8_t id, uint8_t state )
+{
+  led[ id ].state = state;
+	Gpio_setPinState( led[ id ].gpio_id, led[ id ].pin, led[ id ].state );
+}
+
+void Led_setGpio( Id_t id, Id_t gpio_id, uint8_t pin )
+{
+	led[ id ].gpio_id = gpio_id;
+	led[ id ].pin = pin;
 }

@@ -1,4 +1,5 @@
-./objects/adc.o: ADC.c ADC.h CONFIG.h \
+./objects/adc.o: Adc.c Adc.h SchedulerConfig.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h IO.h PORT.h CORE.h \
-  SCH_CONFIG.h SCH.h TIM.h GPIO.h AFIO.h LED.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h Config.h CORE.h IO.h

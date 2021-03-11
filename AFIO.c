@@ -1,11 +1,10 @@
-#include "AFIO.h"
+#include "Afio.h"
 
-void AFIO_Init(void)
-{
-	RCC->APB2ENR = RCC->APB2ENR | RCC_APB2Periph_AFIO;
-}
+typedef AFIO_TypeDef Afio_t;
 
-void Disable_JTAG(void)
+static Afio_t *afio[ 1 ] = { AFIO };
+
+void Afio_disableJTAG( Id_t id )
 {
-	AFIO->MAPR = AFIO->MAPR | (0x4<<24);
+		afio[ id ]->MAPR |= ( 0x4 << 24 );
 }

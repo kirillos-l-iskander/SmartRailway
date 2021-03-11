@@ -1,5 +1,7 @@
-./objects/station.o: STATION.c STATION.h CONFIG.h \
+./objects/station.o: Station.c Station.h SchedulerConfig.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h IO.h PORT.h CORE.h \
-  SCH_CONFIG.h SCH.h LED.h GPIO.h AFIO.h TIM.h SPI.h NRF24L01+.h PID.h \
-  TR.h ADC.h IR.h LCD.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h Config.h CORE.h IO.h \
+  NrfTask.h Nrf.h Gpio.h Spi.h LedTask.h Led.h InfraredTask.h Infrared.h \
+  LcdTask.h Lcd.h

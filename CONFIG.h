@@ -1,113 +1,95 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "SchedulerConfig.h"
+#include "CORE.h"
+#include "IO.h"
+
+//--------------------------------------------------------------------------------------------------------------------
+typedef uint8_t								Id_t;
+#define LED_NUMBER						( 1 )
+#define LED_TASK_NUMBER				( 1 )
+
+#define NRF_NUMBER						( 1 )
+#define NRF_TASK_NUMBER				( 1 )
+
+#define INFRARED_NUMBER				( 3 )
+#define INFRARED_TASK_NUMBER	( 3 )
+
+#define LCD_NUMBER						( 1 )
+#define LCD_TASK_NUMBER				( 1 )
+#define LCD_ROW_NUMBER				( 2 )
+#define LCD_COL_NUMBER				( 16 )
+
+#define ENCODER_NUMBER				( 1 )
+#define PID_NUMBER						( 1 )
+#define MOTOR_NUMBER					( 1 )
+
+#define STATION_TASK_NUMBER		( 1 )
+#define TRAIN_TASK_NUMBER			( 1 )
 //--------------------------------------------------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <stdlib.h>
-
 //--------------------------------------------------------------------------------------------------------------------
-
-#define CPU_F (72000000)
-#define CPU_INSTRUCTION (1)
-
-#define SCH_MAX_TASKS (5)
-#define SCH_TICK_PERIOD_MS (1)
-#define SYSTICK_MAX (16777216)
-
 #ifndef TRUE
-#define FALSE (0)
-#define TRUE (!FALSE)
+#define FALSE							( SCH_FALSE )
+#define TRUE							( !FALSE )
 #endif
-
-#define RETURN_ERROR (0)
-#define RETURN_NORMAL (!RETURN_ERROR)
-
-#define ERROR_SCH_TOO_MANY_TASKS (1)
-#define ERROR_SCH_CANNOT_DELETE_TASK (2)
-
-#define ERROR_SCH_WAITING_FOR_SLAVE_TO_ACK (0xAA)
-#define ERROR_SCH_WAITING_FOR_START_COMMAND_FROM_MASTER (0xAA)
-
-#define ERROR_SCH_ONE_OR_MORE_SLAVES_DID_NOT_START (0xA0)
-#define ERROR_SCH_LOST_SLAVE (0x80)
-
 //--------------------------------------------------------------------------------------------------------------------
 
-#define _BV(n) (1<<n)
-#define SET_BIT(reg,bit) (reg |= (1<<bit))
-#define CLEAR_BIT(reg,bit) (reg &= ~(1<<bit))
-#define TOGGLE_BIT(reg,bit) (reg ^= (1<<bit))
-#define ROR(reg,bit) (reg = (reg>>bit | reg<<8-bit))
-#define ROL(reg,bit) (reg = (reg<<bit | reg>>8-bit))
-#define BIT_IS_SET(reg,bit) (reg & (1<<bit))
-#define BIT_IS_CLEAR(reg,bit) (!(reg & (1<<bit)))
+//IR--------------------
+#define IR_PORT						( GPIOB )
+#define IR0								( 7 )
+#define IR1								( 8 )
+#define IR2								( 9 )
+//IR--------------------
 
-#define Delay_ms(t) HW_Delay_ms(t)
-#define Delay_us(t) SW_Delay_us(t)
+//LED--------------------
+#define LED_PORT				( GPIOC )
+#define LED0						( 13 )
+#define LED1						( 14 )
+//LED--------------------
 
-//--------------------------------------------------------------------------------------------------------------------
+//LCD--------------------
+#define LCD_CON_PORT		( GPIOC )
+#define RS							( 14 )	//0 -> command, 1 -> data
+#define RW							( 0 )	//0 -> write, 1 -> read
+#define E								( 15 )	//0 -> disable LCD, 1 -> enable LCD
 
-#define		__I			volatile const       /*!< Defines 'read only' permissions */
-#define		__O			volatile             /*!< Defines 'write only' permissions */
-#define		__IO		volatile             /*!< Defines 'read / write' permissions */
+#define LCD_DAT_PORT		( GPIOA )
+#define D0							( 0 )
+#define D1							( 1 )
+#define D2							( 2 )
+#define D3							( 3 )
+#define D4							( 4 )
+#define D5							( 5 )
+#define D6							( 6 )
+#define D7							( 7 )
+#define DPINS						( 0xFF )
 
-#define		__IM		volatile const       /*! Defines 'read only' structure member permissions */
-#define		__OM		volatile          	 /*! Defines 'write only' structure member permissions */
-#define		__IOM		volatile             /*! Defines 'read / write' structure member permissions */
+#define ROW_NUM					( 2 )
+#define COL_NUM					( 16 )
+//LCD--------------------
 
-//--------------------------------------------------------------------------------------------------------------------
+//NRF--------------------
+#define SPI2_PORT	 		( GPIOB )
+#define SPI2_MOSI 		( 15 )
+#define SPI2_MISO 		( 14 )
+#define SPI2_SCK			( 13 )
+#define SPI2_NSS			( 12 )
 
-typedef signed char					int8_t;
-typedef signed short				int16_t;
-typedef signed long					int32_t;
-typedef signed long long		int64_t;
+#define NRF_PORT			( GPIOA )
+#define CSN						( 8 )
+#define CE						( 9 )
+#define IRQ						( 10 )
 
-typedef unsigned char				uint8_t;
-typedef unsigned short			uint16_t;
-typedef unsigned long				uint32_t;
-typedef unsigned long long	uint64_t;
+#define DELAY					( 15 )
+#define COUNT					( 15 )
+#define ADDR_WIDTH		( 5 )
+#define PAYLOAD_SIZE	( 5 )
+//NRF--------------------
 
-typedef union
-{
-    struct
-    {
-        uint8_t BIT0:1;
-        uint8_t BIT1:1;
-        uint8_t BIT2:1;
-        uint8_t BIT3:1;
-        uint8_t BIT4:1;
-        uint8_t BIT5:1;
-        uint8_t BIT6:1;
-        uint8_t BIT7:1;
-        uint8_t BIT8:1;
-        uint8_t BIT9:1;
-        uint8_t BIT10:1;
-        uint8_t BIT11:1;
-        uint8_t BIT12:1;
-        uint8_t BIT13:1;
-        uint8_t BIT14:1;
-        uint8_t BIT15:1;
-        uint8_t BIT16:1;
-        uint8_t BIT17:1;
-        uint8_t BIT18:1;
-        uint8_t BIT19:1;
-        uint8_t BIT20:1;
-        uint8_t BIT21:1;
-        uint8_t BIT22:1;
-        uint8_t BIT23:1;
-        uint8_t BIT24:1;
-        uint8_t BIT25:1;
-        uint8_t BIT26:1;
-        uint8_t BIT27:1;
-        uint8_t BIT28:1;
-        uint8_t BIT29:1;
-        uint8_t BIT30:1;
-        uint8_t BIT31:1;
-    }BITS_t;
-    uint32_t BYTE:8;
-}REG_t;
-
-//--------------------------------------------------------------------------------------------------------------------
+//SERVER--------------------
+#define NODES_NUMBER	( 4 )
+//SERVER--------------------
 
 #endif /* CONFIG_H */

@@ -1,24 +1,36 @@
-#include "SPI.h"
+#include "Spi.h"
 
-void SPI2_Init(void)
+//CR1
+#define SSM (1<<9)
+#define SPE (1<<6)
+#define BR (6<<3)
+#define MSTR (1<<2)
+
+//CR2
+#define SSOE (1<<2)
+
+//SR
+#define BSY (1<<7)
+#define TXE (1<<1)
+#define RXNE (1<<0)
+
+typedef SPI_TypeDef Spi_t;
+
+static Spi_t *spi[ 2 ] = { SPI1, SPI2 };
+
+void Spi_init( Id_t id )
 {
-	AFIO_Init();
-	GPIO_InitPin(SPI2_REG, SPI2_MOSI, GPIO_Mode_AF_PP | GPIO_Speed_50MHz);
-	GPIO_InitPin(SPI2_REG, SPI2_MISO, GPIO_Mode_IN_FLOATING | GPIO_Input);
-	GPIO_InitPin(SPI2_REG, SPI2_SCK, GPIO_Mode_AF_PP | GPIO_Speed_50MHz);
-	GPIO_InitPin(SPI2_REG, SPI2_NSS, GPIO_Mode_AF_PP | GPIO_Speed_50MHz);
-	RCC->APB1ENR = RCC->APB1ENR | RCC_APB1Periph_SPI2;
-	SPI2->CR2 = SPI2->CR2 | SSOE;
-	SPI2->CR1 = SPI2->CR1 | SSM | SPE | BR | MSTR;
+	spi[ id ]->CR2 |= SSOE;
+	spi[ id ]->CR1 |= SSM | SPE | BR | MSTR;
 }
 
-uint8_t SPI2_Transfer(uint8_t Buff)
+uint8_t Spi_transfer( Id_t id, uint8_t txBuffer )
 {
-	uint8_t Data;
-	while(!(SPI2->SR & TXE));
-	SPI2->DR = Buff;
-	while(!(SPI2->SR & RXNE));
-	Data = (uint8_t) SPI2->DR;
-	while(SPI2->SR & BSY);
-	return Data;
+	uint8_t rxBuffer = 0;
+	while( !( spi[ id ]->SR & TXE ) );
+	spi[ id ]->DR = txBuffer;
+	while( !( spi[ id ]->SR & RXNE ) );
+	rxBuffer = ( uint8_t ) spi[ id ]->DR;
+	while( spi[ id ]->SR & BSY );
+	return rxBuffer;
 }

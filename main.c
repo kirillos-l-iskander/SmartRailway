@@ -1,111 +1,314 @@
-#include "CONFIG.h"
-#include "IO.h"
-#include "PORT.h"
-#include "CORE.h"
-#include "SCH_CONFIG.h"
-#include "SCH.h"
-#include "TIM.h"
-#include "LED.h"
+#include "SchedulerConfig.h"
+#include "Scheduler.h"
 
-#include "GPIO.h"
-#include "AFIO.h"
-#include "SPI.h"
-#include "NRF24L01+.h"
-#include "SR.h"
+#include "Rcc.h"
+#include "Afio.h"
+#include "Gpio.h"
+#include "Adc.h"
+#include "Timer.h"
+#include "Spi.h"
 
-#include "PID.h"
-#include "TR.h"
+#include "Led.h"
+#include "LedTask.h"
+#include "Infrared.h"
+#include "InfraredTask.h"
+#include "Lcd.h"
+#include "LcdTask.h"
+#include "Nrf.h"
+#include "NrfTask.h"
+#include "Station.h"
+#include "Encoder.h"
+#include "Pid.h"
+#include "Motor.h"
+#include "Train.h"
 
-#include "ADC.h"
-#include "IR.h"
-#include "LCD.h"
-#include "ST.h"
+void SysTick_Handler( void );
+UBaseType_t serverTask( void );
+UBaseType_t station1Task( void );
+UBaseType_t station2Task( void );
+UBaseType_t train1Task( void );
+UBaseType_t train2Task( void );
 
-void SR_Task(void);
-void ST1_Task(void);
-void ST2_Task(void);
-void TR1_Task(void);
-void TR2_Task(void);
+static void (*systickInterrupt)( void ) = NULL;
 
-int main(void)
+void SysTick_Handler( void )
 {
-	SCH_Init();
-	Disable_JTAG();
-	Delay_us(500);
-	//Un comment one of the following programs
-	//SR_Task();
-	//ST1_Task();
-	//ST2_Task();
-	//TR1_Task();
-	//TR2_Task();
-	Delay_us(500);
-	SCH_Start();
-	while(1)
+	(*systickInterrupt)();
+}
+
+int main( void )
+{
+	//Un comment only one of the following Nodes Programs
+	//serverTask();
+	//station1Task();
+	//station2Task();
+	//train1Task();
+	//train2Task();
+	
+	/*
+	Rcc_enableClock( 0, GPIOC );
+	Afio_disableJTAG( 0 );
+
+	Led_setGpio( 0, GPIOC_ID, 13 );
+	Led_init();
+	LedTask_init();
+	LedTask_setState( 0, HIGH, 1000 );
+	
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 1, 100 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
 	{
-		SCH_Dispatch_Tasks();
+		Scheduler_dispatchTasks();
 	}
-	return RETURN_NORMAL;
+	*/
+	return SCH_RETURN_NORMAL;
 }
 
-void SR_Task(void)
+UBaseType_t serverTask( void )
 {
-	LED_Init();
-	NRF_InitSR();
-
-	SCH_Add_Task(LED_Update, 0, 10);
-	SCH_Add_Task(SR_Update, 1, 10);
-}
-
-void ST1_Task(void)
-{
-	LED_Init();
-	IR_Init();
-	LCD_Init();
-	NRF_InitST1();
+	Rcc_enableClock( 0, AFIO );
+	Rcc_enableClock( 0, GPIOA );
+	Rcc_enableClock( 0, GPIOB );
+	Rcc_enableClock( 0, GPIOC );
+	Rcc_enableClock( 0, SPI2 );
 	
-	SCH_Add_Task(LED_Update, 0, 10);
-	SCH_Add_Task(IR_Update, 1, 100);
-	SCH_Add_Task(ST_Update, 2, 100);
-	SCH_Add_Task(LCD_Update, 3, 5);
-	SCH_Add_Task(NRF_Update, 4, 10);
+	Afio_disableJTAG( 0 );
+	DELAY_US( 1000 );
+	
+	Led_setGpio( 0, GPIOC_ID, 14 );
+	Led_setGpio( 1, GPIOC_ID, 13 );
+	Led_init();
+	LedTask_init();
+
+	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
+	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
+	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
+	Nrf_setSpi( 0, SPI2_ID );
+	Nrf_init();
+	NrfTaskSlave_setNodeNumber( 0, 0 );
+	NrfTaskMaster_init();
+
+	DELAY_US( 1000 );
+
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 1000, 1 );
+	Scheduler_addTask( NrfTaskMaster_update, NULL, 1000, 1 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
+	{
+		Scheduler_dispatchTasks();
+	}
 }
 
-void ST2_Task(void)
+UBaseType_t station1Task( void )
 {
-	LED_Init();
-	IR_Init();
-	LCD_Init();
-	NRF_InitST2();
+	Rcc_enableClock( 0, AFIO );
+	Rcc_enableClock( 0, GPIOA );
+	Rcc_enableClock( 0, GPIOB );
+	Rcc_enableClock( 0, GPIOC );
+	Rcc_enableClock( 0, SPI2 );
+
+	Afio_disableJTAG( 0 );
+	DELAY_US( 1000 );
+
+	Led_setGpio( 0, GPIOC_ID, 13 );
+	//Led_setGpio( 1, GPIOC_ID, 14 );
+	Led_init();
+	LedTask_init();
+
+	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
+	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
+	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
+	Nrf_setSpi( 0, SPI2_ID );
+	Nrf_init();
+	NrfTaskSlave_setNodeNumber( 0, 1 );
+	NrfTaskSlave_init();
+
+	Infrared_setGpio( 0, GPIOB_ID, 7 );
+	Infrared_setGpio( 1, GPIOB_ID, 8 );
+	Infrared_setGpio( 2, GPIOB_ID, 9 );
+	Infrared_init();
+	InfraredTask_init();
 	
-	SCH_Add_Task(LED_Update, 0, 10);
-	SCH_Add_Task(IR_Update, 1, 100);
-	SCH_Add_Task(ST_Update, 2, 100);
-	SCH_Add_Task(LCD_Update, 3, 5);
-	SCH_Add_Task(NRF_Update, 4, 10);
+	Lcd_setGpioRs( 0, GPIOC_ID, 14 );
+	Lcd_setGpioE( 0, GPIOC_ID, 15 );
+	Lcd_setGpioD0( 0, GPIOA_ID, 0 );
+	Lcd_init();
+	LcdTask_init();
+	
+	StationTask_setNodeNumber( 0, 1 );
+	StationTask_init();
+
+	DELAY_US( 1000 );
+
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 0, 100 );
+	Scheduler_addTask( InfraredTask_update, NULL, 1, 100 );
+	Scheduler_addTask( StationTask_update, NULL, 2, 100 );
+	Scheduler_addTask( LcdTask_update, NULL, 3, 5 );
+	Scheduler_addTask( NrfTaskSlave_update, NULL, 4, 5 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
+	{
+		Scheduler_dispatchTasks();
+	}
 }
 
-void TR1_Task(void)
+UBaseType_t station2Task( void )
 {
-	LED_Init();
-	PID_Init();
-	TIM2_Init();
-	TIM3_Init();
-	NRF_InitTR1();
+	Rcc_enableClock( 0, AFIO );
+	Rcc_enableClock( 0, GPIOA );
+	Rcc_enableClock( 0, GPIOB );
+	Rcc_enableClock( 0, GPIOC );
+	Rcc_enableClock( 0, SPI2 );
+
+	Afio_disableJTAG( 0 );
+	DELAY_US( 1000 );
+
+	Led_setGpio( 0, GPIOC_ID, 13 );
+	//Led_setGpio( 1, GPIOC_ID, 14 );
+	Led_init();
+	LedTask_init();
+
+	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
+	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
+	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
+	Nrf_setSpi( 0, SPI2_ID );
+	Nrf_init();
+	NrfTaskSlave_setNodeNumber( 0, 2 );
+	NrfTaskSlave_init();
+
+	Infrared_setGpio( 0, GPIOB_ID, 7 );
+	Infrared_setGpio( 1, GPIOB_ID, 8 );
+	Infrared_setGpio( 2, GPIOB_ID, 9 );
+	Infrared_init();
+	InfraredTask_init();
 	
-	SCH_Add_Task(LED_Update, 0, 10);
-	SCH_Add_Task(NRF_Update, 1, 10);
-	SCH_Add_Task(TR_Update, 2, 100);
+	Lcd_setGpioRs( 0, GPIOC_ID, 14 );
+	Lcd_setGpioE( 0, GPIOC_ID, 15 );
+	Lcd_setGpioD0( 0, GPIOA_ID, 0 );
+	Lcd_init();
+	LcdTask_init();
+	
+	StationTask_setNodeNumber( 0, 2 );
+	StationTask_init();
+
+	DELAY_US( 1000 );
+
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 0, 100 );
+	Scheduler_addTask( InfraredTask_update, NULL, 1, 100 );
+	Scheduler_addTask( StationTask_update, NULL, 2, 100 );
+	Scheduler_addTask( LcdTask_update, NULL, 3, 5 );
+	Scheduler_addTask( NrfTaskSlave_update, NULL, 4, 5 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
+	{
+		Scheduler_dispatchTasks();
+	}
 }
 
-void TR2_Task(void)
+UBaseType_t train1Task( void )
 {
-	LED_Init();
-	PID_Init();
-	TIM2_Init();
-	TIM3_Init();
-	NRF_InitTR2();
+	Rcc_enableClock( 0, AFIO );
+	Rcc_enableClock( 0, GPIOA );
+	Rcc_enableClock( 0, GPIOB );
+	Rcc_enableClock( 0, GPIOC );
+	Rcc_enableClock( 0, TIM2 );
+	Rcc_enableClock( 0, TIM3 );
+	Rcc_enableClock( 0, SPI2 );
+
+	Afio_disableJTAG( 0 );
+	DELAY_US( 1000 );
+
+	Led_setGpio( 0, GPIOC_ID, 13 );
+	//Led_setGpio( 1, GPIOC_ID, 14 );
+	Led_init();
+	LedTask_init();
+
+	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
+	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
+	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
+	Nrf_setSpi( 0, SPI2_ID );
+	Nrf_init();
+	NrfTaskSlave_setNodeNumber( 0, 3 );
+	NrfTaskSlave_init();
+
+	Encoder_setGpio( 0, GPIOA_ID, 0 );
+	Encoder_setTimer( 0, TIMER2_ID );
+	Encoder_init();
 	
-	SCH_Add_Task(LED_Update, 0, 10);
-	SCH_Add_Task(NRF_Update, 1, 10);
-	SCH_Add_Task(TR_Update, 2, 100);
+	Motor_setGpio( 0, GPIOA_ID, 6 );
+	Motor_setTimer( 0, TIMER3_ID );
+	Motor_init();
+	
+	TrainTask_init();
+	
+	DELAY_US( 1000 );
+
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 0, 100 );
+	Scheduler_addTask( NrfTaskSlave_update, NULL, 1, 5 );
+	Scheduler_addTask( TrainTask_update, NULL, 2, 100 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
+	{
+		Scheduler_dispatchTasks();
+	}
+}
+
+UBaseType_t train2Task( void )
+{
+	Rcc_enableClock( 0, AFIO );
+	Rcc_enableClock( 0, GPIOA );
+	Rcc_enableClock( 0, GPIOB );
+	Rcc_enableClock( 0, GPIOC );
+	Rcc_enableClock( 0, TIM2 );
+	Rcc_enableClock( 0, TIM3 );
+	Rcc_enableClock( 0, SPI2 );
+
+	Afio_disableJTAG( 0 );
+	DELAY_US( 1000 );
+
+	Led_setGpio( 0, GPIOC_ID, 13 );
+	//Led_setGpio( 1, GPIOC_ID, 14 );
+	Led_init();
+	LedTask_init();
+
+	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
+	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
+	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
+	Nrf_setSpi( 0, SPI2_ID );
+	Nrf_init();
+	NrfTaskSlave_setNodeNumber( 0, 4 );
+	NrfTaskSlave_init();
+
+	Encoder_setGpio( 0, GPIOA_ID, 0 );
+	Encoder_setTimer( 0, TIMER2_ID );
+	Encoder_init();
+	
+	Motor_setGpio( 0, GPIOA_ID, 6 );
+	Motor_setTimer( 0, TIMER3_ID );
+	Motor_init();
+	
+	TrainTask_init();
+	
+	DELAY_US( 1000 );
+
+	Scheduler_init();
+	Scheduler_addTask( LedTask_update, NULL, 0, 100 );
+	Scheduler_addTask( NrfTaskSlave_update, NULL, 1, 5 );
+	Scheduler_addTask( TrainTask_update, NULL, 2, 100 );
+	systickInterrupt = Scheduler_update;
+	Scheduler_start();
+	while( 1 )
+	{
+		Scheduler_dispatchTasks();
+	}
 }
