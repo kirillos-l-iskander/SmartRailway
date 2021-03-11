@@ -44,25 +44,6 @@ int main( void )
 	//station2Task();
 	//train1Task();
 	//train2Task();
-	
-	/*
-	Rcc_enableClock( 0, GPIOC );
-	Afio_disableJTAG( 0 );
-
-	Led_setGpio( 0, GPIOC_ID, 13 );
-	Led_init();
-	LedTask_init();
-	LedTask_setState( 0, HIGH, 1000 );
-	
-	Scheduler_init();
-	Scheduler_addTask( LedTask_update, NULL, 1, 100 );
-	systickInterrupt = Scheduler_update;
-	Scheduler_start();
-	while( 1 )
-	{
-		Scheduler_dispatchTasks();
-	}
-	*/
 	return SCH_RETURN_NORMAL;
 }
 
