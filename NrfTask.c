@@ -27,7 +27,7 @@ typedef struct
 static NrfTaskMaster_t nrfTaskMaster[ NRF_TASK_NUMBER ];
 static NrfTaskSlave_t nrfTaskSlave[ NRF_TASK_NUMBER ];
 
-void NrfTaskMaster_init( Id_t id )
+void NrfTaskMaster_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio_id, uint8_t csn_pin, Id_t spi_gpio_id, uint8_t spi_pin, Id_t spi_id )
 {
 	nrfTaskMaster[ id ].freq = 0;
 	nrfTaskMaster[ id ].state = 0;
@@ -48,7 +48,7 @@ void NrfTaskMaster_init( Id_t id )
 	NrfTaskMaster_clearTxBuffer( id );
 	NrfTaskMaster_clearRxBuffer( id );
 
-	Nrf_init( id );
+	Nrf_init( id, ce_gpio_id, ce_pin, csn_gpio_id, csn_pin, spi_gpio_id, spi_pin, spi_id );
 	Nrf_openWritingPipe( id, nrfTaskMaster[ id ].address[ nrfTaskMaster[ id ].nodeNumber ] );	
 	Nrf_startTxMode( id );
 }
@@ -154,7 +154,7 @@ void NrfTaskMaster_update( void *paramter )
 	}
 }
 
-void NrfTaskSlave_init( Id_t id )
+void NrfTaskSlave_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio_id, uint8_t csn_pin, Id_t spi_gpio_id, uint8_t spi_pin, Id_t spi_id )
 {
 	nrfTaskSlave[ id ].state = 0;
 	nrfTaskSlave[ id ].safty = 0;
@@ -165,7 +165,7 @@ void NrfTaskSlave_init( Id_t id )
 	nrfTaskSlave[ id ].address[ 4 ] = nrfTaskSlave[ id ].nodeNumber;
 	NrfTaskSlave_clearTxBuffer( id );
 	NrfTaskSlave_clearRxBuffer( id );
-	Nrf_init( id );
+	Nrf_init( id, ce_gpio_id, ce_pin, csn_gpio_id, csn_pin, spi_gpio_id, spi_pin, spi_id );
 	Nrf_openWritingPipe( id, nrfTaskSlave[ id ].address );
 }
 
@@ -225,7 +225,7 @@ void NrfTaskSlave_update( void *paramter )
 			{
 				NrfTaskSlave_clearTxBuffer( id );
 				NrfTaskSlave_clearRxBuffer( id );
-				Nrf_init( id );
+				Nrf_reinit( id );
 				nrfTaskSlave[ id ].safty = 0;
 				nrfTaskSlave[ id ].state = 4;
 			}
@@ -251,7 +251,6 @@ void NrfTaskSlave_update( void *paramter )
 			
 		case 4:
 		{
-			//NrfTaskSlave_init( Id );
 			Nrf_openWritingPipe( id, nrfTaskSlave[ id ].address );
 			Nrf_startRxMode( id );
 			nrfTaskSlave[ id ].state = 1;

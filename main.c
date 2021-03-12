@@ -76,22 +76,14 @@ UBaseType_t serverTask( void )
 	Rcc_enableClock( 0, SPI2 );
 	
 	Afio_disableJTAG( 0 );
+	
 	DELAY_US( 1000 );
 	
-	Led_setGpio( 0, GPIOC_ID, 14 );
-	Led_setGpio( 1, GPIOC_ID, 13 );
-	Led_init( 0 );
-	Led_init( 1 );
-	LedTask_init( 0 );
-	LedTask_init( 1 );
+	LedTask_init( 0, GPIOC_ID, 14 );
+	LedTask_init( 1, GPIOC_ID, 13 );
 
-	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
-	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
-	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
-	Nrf_setSpi( 0, SPI2_ID );
-	Nrf_init( 0 );
 	NrfTaskSlave_setNodeNumber( 0, 0 );
-	NrfTaskMaster_init( 0 );
+	NrfTaskMaster_init( 0, GPIOA_ID, 9, GPIOA_ID, 8, GPIOB_ID, 12, SPI2_ID );
 
 	DELAY_US( 1000 );
 
@@ -116,35 +108,19 @@ UBaseType_t station1Task( void )
 	Rcc_enableClock( 0, SPI2 );
 
 	Afio_disableJTAG( 0 );
+	
 	DELAY_US( 1000 );
 
-	Led_setGpio( 1, GPIOC_ID, 13 );
-	Led_init( 1 );
-	LedTask_init( 1 );
+	LedTask_init( 1, GPIOC_ID, 13 );
 
-	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
-	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
-	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
-	Nrf_setSpi( 0, SPI2_ID );
-	Nrf_init( 0 );
 	NrfTaskSlave_setNodeNumber( 0, 1 );
-	NrfTaskSlave_init( 0 );
+	NrfTaskSlave_init( 0, GPIOA_ID, 9, GPIOA_ID, 8, GPIOB_ID, 12, SPI2_ID );
 
-	Infrared_setGpio( 0, GPIOB_ID, 7 );
-	Infrared_setGpio( 1, GPIOB_ID, 8 );
-	Infrared_setGpio( 2, GPIOB_ID, 9 );
-	Infrared_init( 0 );
-	Infrared_init( 1 );
-	Infrared_init( 2 );
-	InfraredTask_init( 0 );
-	InfraredTask_init( 1 );
-	InfraredTask_init( 2 );
+	InfraredTask_init( 0, GPIOB_ID, 7 );
+	InfraredTask_init( 1, GPIOB_ID, 8 );
+	InfraredTask_init( 2, GPIOB_ID, 9 );
 	
-	Lcd_setGpioRs( 0, GPIOC_ID, 14 );
-	Lcd_setGpioE( 0, GPIOC_ID, 15 );
-	Lcd_setGpioD0( 0, GPIOA_ID, 0 );
-	Lcd_init( 0 );
-	LcdTask_init( 0 );
+	LcdTask_init( 0, GPIOC_ID, 14, GPIOC_ID, 15, GPIOA_ID, 0 );
 	
 	StationTask_setNodeNumber( 0, 1 );
 	StationTask_init( 0 );
@@ -176,35 +152,19 @@ UBaseType_t station2Task( void )
 	Rcc_enableClock( 0, SPI2 );
 
 	Afio_disableJTAG( 0 );
+	
 	DELAY_US( 1000 );
 
-	Led_setGpio( 1, GPIOC_ID, 13 );
-	Led_init( 1 );
-	LedTask_init( 1 );
+	LedTask_init( 1, GPIOC_ID, 13 );
 
-	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
-	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
-	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
-	Nrf_setSpi( 0, SPI2_ID );
-	Nrf_init( 0 );
 	NrfTaskSlave_setNodeNumber( 0, 2 );
-	NrfTaskSlave_init( 0 );
+	NrfTaskSlave_init( 0, GPIOA_ID, 9, GPIOA_ID, 8, GPIOB_ID, 12, SPI2_ID );
 
-	Infrared_setGpio( 0, GPIOB_ID, 7 );
-	Infrared_setGpio( 1, GPIOB_ID, 8 );
-	Infrared_setGpio( 2, GPIOB_ID, 9 );
-	Infrared_init( 0 );
-	Infrared_init( 1 );
-	Infrared_init( 2 );
-	InfraredTask_init( 0 );
-	InfraredTask_init( 1 );
-	InfraredTask_init( 2 );
+	InfraredTask_init( 0, GPIOB_ID, 7 );
+	InfraredTask_init( 1, GPIOB_ID, 8 );
+	InfraredTask_init( 2, GPIOB_ID, 9 );
 	
-	Lcd_setGpioRs( 0, GPIOC_ID, 14 );
-	Lcd_setGpioE( 0, GPIOC_ID, 15 );
-	Lcd_setGpioD0( 0, GPIOA_ID, 0 );
-	Lcd_init( 0 );
-	LcdTask_init( 0 );
+	LcdTask_init( 0, GPIOC_ID, 14, GPIOC_ID, 15, GPIOA_ID, 0 );
 	
 	StationTask_setNodeNumber( 0, 2 );
 	StationTask_init( 0 );
@@ -238,27 +198,17 @@ UBaseType_t train1Task( void )
 	Rcc_enableClock( 0, SPI2 );
 
 	Afio_disableJTAG( 0 );
+	
 	DELAY_US( 1000 );
 
-	Led_setGpio( 1, GPIOC_ID, 13 );
-	Led_init( 1 );
-	LedTask_init( 1 );
+	LedTask_init( 1, GPIOC_ID, 13 );
 
-	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
-	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
-	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
-	Nrf_setSpi( 0, SPI2_ID );
-	Nrf_init( 0 );
 	NrfTaskSlave_setNodeNumber( 0, 3 );
-	NrfTaskSlave_init( 0 );
+	NrfTaskSlave_init( 0, GPIOA_ID, 9, GPIOA_ID, 8, GPIOB_ID, 12, SPI2_ID );
 
-	Encoder_setGpio( 0, GPIOA_ID, 0 );
-	Encoder_setTimer( 0, TIMER2_ID );
-	Encoder_init( 0 );
+	Encoder_init( 0, GPIOA_ID, 0, TIMER2_ID );
 	
-	Motor_setGpio( 0, GPIOA_ID, 6 );
-	Motor_setTimer( 0, TIMER3_ID );
-	Motor_init( 0 );
+	Motor_init( 0, GPIOA_ID, 6, TIMER3_ID );
 	
 	TrainTask_init( 0 );
 	
@@ -287,27 +237,17 @@ UBaseType_t train2Task( void )
 	Rcc_enableClock( 0, SPI2 );
 
 	Afio_disableJTAG( 0 );
+	
 	DELAY_US( 1000 );
 
-	Led_setGpio( 1, GPIOC_ID, 13 );
-	Led_init( 1 );
-	LedTask_init( 1 );
+	LedTask_init( 1, GPIOC_ID, 13 );
 
-	Nrf_setGpioCe( 0, GPIOA_ID, 9 );
-	Nrf_setGpioCsn( 0, GPIOA_ID, 8 );
-	Nrf_setGpioSpi( 0, GPIOB_ID, 12 );
-	Nrf_setSpi( 0, SPI2_ID );
-	Nrf_init( 0 );
 	NrfTaskSlave_setNodeNumber( 0, 4 );
-	NrfTaskSlave_init( 0 );
+	NrfTaskSlave_init( 0, GPIOA_ID, 9, GPIOA_ID, 8, GPIOB_ID, 12, SPI2_ID );
 
-	Encoder_setGpio( 0, GPIOA_ID, 0 );
-	Encoder_setTimer( 0, TIMER2_ID );
-	Encoder_init( 0 );
+	Encoder_init( 0, GPIOA_ID, 0, TIMER2_ID );
 	
-	Motor_setGpio( 0, GPIOA_ID, 6 );
-	Motor_setTimer( 0, TIMER3_ID );
-	Motor_init( 0 );
+	Motor_init( 0, GPIOA_ID, 6, TIMER3_ID );
 	
 	TrainTask_init( 0 );
 	

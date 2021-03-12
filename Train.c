@@ -2,9 +2,7 @@
 
 void TrainTask_init( Id_t id )
 {
-	Encoder_init( id );
 	Pid_init( id );
-	Motor_init( id );
 }
 
 void TrainTask_update( void *paramter )

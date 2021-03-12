@@ -4,7 +4,7 @@
 #include "SchedulerConfig.h"
 #include "Infrared.h"
 
-void InfraredTask_init( Id_t id );
+void InfraredTask_init( Id_t id, Id_t gpio_id, uint8_t pin );
 uint8_t InfraredTask_getState( Id_t id );
 void InfraredTask_update( void *paramter );
 

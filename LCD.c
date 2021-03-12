@@ -3,24 +3,30 @@
 typedef struct
 {
 	Id_t rs_gpio_id;
-	uint8_t pinRs;
+	uint8_t rsPin;
 	Id_t rw_gpio_id;
-	uint8_t pinRw;
+	uint8_t rwPin;
 	Id_t e_gpio_id;
-	uint8_t pinE;
+	uint8_t ePin;
 	Id_t d0_gpio_id;
-	uint8_t pinD0;
+	uint8_t d0Pin;
 }Lcd_t;
 
 static Lcd_t lcd[ LCD_NUMBER ];
 static uint8_t lcdRowAddress[ 4 ] = { 0x80, 0xC0, 0x90, 0xD0 };
 
-void Lcd_init( Id_t id )
+void Lcd_init( Id_t id, Id_t rs_gpio_id, uint8_t rsPin, Id_t e_gpio_id, uint8_t ePin, Id_t d0_gpio_id, uint8_t d0Pin )
 {
 	size_t pin = 0;
-	Gpio_initPin( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, OUTPUT );
-	Gpio_initPin( lcd[ id ].e_gpio_id, lcd[ id ].pinE, OUTPUT );
-	for ( pin = lcd[ id ].pinD0; pin < ( lcd[ id ].pinD0 + 8 ); pin++ )
+	lcd[ id ].rs_gpio_id = rs_gpio_id;
+	lcd[ id ].rsPin = rsPin;
+	lcd[ id ].e_gpio_id = e_gpio_id;
+	lcd[ id ].ePin = ePin;
+	lcd[ id ].d0_gpio_id = d0_gpio_id;
+	lcd[ id ].d0Pin = d0Pin;
+	Gpio_initPin( lcd[ id ].rs_gpio_id, lcd[ id ].rsPin, OUTPUT );
+	Gpio_initPin( lcd[ id ].e_gpio_id, lcd[ id ].ePin, OUTPUT );
+	for ( pin = lcd[ id ].d0Pin; pin < ( lcd[ id ].d0Pin + 8 ); pin++ )
 	{
 		Gpio_initPin( lcd[ id ].d0_gpio_id, pin, OUTPUT );
 	}
@@ -36,21 +42,21 @@ void Lcd_init( Id_t id )
 
 void Lcd_setCommand( Id_t id, uint8_t command )
 {
-	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].pinD0 ), command );
-	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, LOW );
-	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, HIGH );
+	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].d0Pin ), command );
+	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].rsPin, LOW );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].ePin, HIGH );
 	DELAY_US( 1 );
-	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, LOW );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].ePin, LOW );
 	DELAY_US( 50 );
 }
 
 void Lcd_setCharacter( Id_t id, uint8_t character )
 {
-	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].pinD0 ), character );
-	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].pinRs, HIGH );
-	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, HIGH );
+	Gpio_setPortState( lcd[ id ].d0_gpio_id, ( 0xFFU << lcd[ id ].d0Pin ), character );
+	Gpio_setPinState( lcd[ id ].rs_gpio_id, lcd[ id ].rsPin, HIGH );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].ePin, HIGH );
 	DELAY_US( 1 );
-	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].pinE, LOW );
+	Gpio_setPinState( lcd[ id ].e_gpio_id, lcd[ id ].ePin, LOW );
 }
 
 void Lcd_setString( Id_t id, uint8_t *string )
@@ -72,22 +78,4 @@ void Lcd_clear( Id_t id )
 	Lcd_setCommand( id, CLEAR_DISPLAY );
 	Lcd_setCommand( id, FORCE_CURSOR_HOME );
 	DELAY_US( 2000 );
-}
-
-void Lcd_setGpioRs( Id_t id, Id_t gpio_id, uint8_t pin )
-{
-	lcd[ id ].rs_gpio_id = gpio_id;
-	lcd[ id ].pinRs = pin;
-}
-
-void Lcd_setGpioE( Id_t id, Id_t gpio_id, uint8_t pin )
-{
-	lcd[ id ].e_gpio_id = gpio_id;
-	lcd[ id ].pinE = pin;
-}
-
-void Lcd_setGpioD0( Id_t id, Id_t gpio_id, uint8_t pin )
-{
-	lcd[ id ].d0_gpio_id = gpio_id;
-	lcd[ id ].pinD0 = pin;
 }

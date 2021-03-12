@@ -10,13 +10,13 @@ typedef struct
 
 static LedTask_t ledTask[ LED_TASK_NUMBER ];
 
-void LedTask_init( Id_t id )
+void LedTask_init( Id_t id, Id_t gpio_id, uint8_t pin )
 {
 	ledTask[ id ].state = LOW;
 	ledTask[ id ].blink = 0;
 	ledTask[ id ].period = 0;
 	ledTask[ id ].delay = 0;
-	Led_init( id );
+	Led_init( id, gpio_id, pin );
 }
 
 void LedTask_setState( Id_t id, uint8_t state, uint16_t period )
