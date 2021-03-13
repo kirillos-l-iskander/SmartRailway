@@ -6,6 +6,11 @@
 #include "InfraredTask.h"
 #include "LcdTask.h"
 
+typedef enum
+{
+	STATION1_ID
+}STATION_t;
+
 void StationTask_init( Id_t id );
 void StationTask_setNodeNumber( Id_t id, uint8_t nodeNumber );
 void StationTask_startState( Id_t id );

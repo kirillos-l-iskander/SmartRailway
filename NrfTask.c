@@ -24,10 +24,10 @@ typedef struct
 	uint8_t rxBuffer[ PAYLOAD_SIZE ];
 }NrfTaskSlave_t;
 
-static NrfTaskMaster_t nrfTaskMaster[ NRF_TASK_NUMBER ];
-static NrfTaskSlave_t nrfTaskSlave[ NRF_TASK_NUMBER ];
+static NrfTaskMaster_t nrfTaskMaster[ NRF_NUMBER ];
+static NrfTaskSlave_t nrfTaskSlave[ NRF_NUMBER ];
 
-void NrfTaskMaster_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio_id, uint8_t csn_pin, Id_t spi_gpio_id, uint8_t spi_pin, Id_t spi_id )
+void NrfTaskMaster_init( Id_t id, Id_t ceGpioId, uint8_t cePin, Id_t csnGpioId, uint8_t csnPin, Id_t comGpioId, uint8_t comPin, Id_t comSpiId )
 {
 	nrfTaskMaster[ id ].freq = 0;
 	nrfTaskMaster[ id ].state = 0;
@@ -48,7 +48,7 @@ void NrfTaskMaster_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio
 	NrfTaskMaster_clearTxBuffer( id );
 	NrfTaskMaster_clearRxBuffer( id );
 
-	Nrf_init( id, ce_gpio_id, ce_pin, csn_gpio_id, csn_pin, spi_gpio_id, spi_pin, spi_id );
+	Nrf_init( id, ceGpioId, cePin, csnGpioId, csnPin, comGpioId, comPin, comSpiId );
 	Nrf_openWritingPipe( id, nrfTaskMaster[ id ].address[ nrfTaskMaster[ id ].nodeNumber ] );	
 	Nrf_startTxMode( id );
 }
@@ -154,7 +154,7 @@ void NrfTaskMaster_update( void *paramter )
 	}
 }
 
-void NrfTaskSlave_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio_id, uint8_t csn_pin, Id_t spi_gpio_id, uint8_t spi_pin, Id_t spi_id )
+void NrfTaskSlave_init( Id_t id, Id_t ceGpioId, uint8_t cePin, Id_t csnGpioId, uint8_t csnPin, Id_t comGpioId, uint8_t comPin, Id_t comSpiId )
 {
 	nrfTaskSlave[ id ].state = 0;
 	nrfTaskSlave[ id ].safty = 0;
@@ -165,7 +165,7 @@ void NrfTaskSlave_init( Id_t id, Id_t ce_gpio_id, uint8_t ce_pin, Id_t csn_gpio_
 	nrfTaskSlave[ id ].address[ 4 ] = nrfTaskSlave[ id ].nodeNumber;
 	NrfTaskSlave_clearTxBuffer( id );
 	NrfTaskSlave_clearRxBuffer( id );
-	Nrf_init( id, ce_gpio_id, ce_pin, csn_gpio_id, csn_pin, spi_gpio_id, spi_pin, spi_id );
+	Nrf_init( id, ceGpioId, cePin, csnGpioId, csnPin, comGpioId, comPin, comSpiId );
 	Nrf_openWritingPipe( id, nrfTaskSlave[ id ].address );
 }
 
@@ -221,7 +221,7 @@ void NrfTaskSlave_update( void *paramter )
 				Nrf_startTxMode( id );
 				nrfTaskSlave[ id ].safty = 0;
 				nrfTaskSlave[ id ].state = 2;
-			}else if( nrfTaskSlave[ id ].safty == ( C_MS_TO_TICKS( 1000 ) / C_MS_TO_TICKS( 5 ) ) )
+			}else if( nrfTaskSlave[ id ].safty == ( MS_TO_TICKS( 1000 ) / MS_TO_TICKS( 5 ) ) )
 			{
 				NrfTaskSlave_clearTxBuffer( id );
 				NrfTaskSlave_clearRxBuffer( id );

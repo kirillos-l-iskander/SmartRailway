@@ -49,7 +49,7 @@
 #define ROL( reg, bit )									( reg = ( reg << bit | reg >> ( 32 - bit ) ) )
 #define IS_BIT_SET( reg, bit )					( reg & ( 1 << bit ) )
 #define IS_BIT_CLEAR( reg, bit )				( !( reg & ( 1 << bit ) ) )
-#define C_MS_TO_TICKS( t )								( t / SCH_MS_TICK_PERIOD )
+#define MS_TO_TICKS( t )								( t / SCH_MS_TICK_PERIOD )
 #define DELAY_MS( t )										Scheduler_delaySoftwareMs( t )
 #define DELAY_US( t )										Scheduler_delaySoftwareUs( t )
 

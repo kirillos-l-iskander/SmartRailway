@@ -7,14 +7,14 @@ typedef struct
 	uint8_t readingColumnIndex;
 }LcdTask_t;
 
-static LcdTask_t lcdTask[ LCD_TASK_NUMBER ];
+static LcdTask_t lcdTask[ LCD_NUMBER ];
 
-void LcdTask_init( Id_t id, Id_t rs_gpio_id, uint8_t rs_pin, Id_t e_gpio_id, uint8_t e_pin, Id_t d0_gpio_id, uint8_t d0_pin )
+void LcdTask_init( Id_t id, Id_t rsGpioId, uint8_t rsPin, Id_t eGpioId, uint8_t ePin, Id_t dGpioId, uint8_t dPin )
 {
 	LcdTask_clear( id );
 	lcdTask[ id ].readingRowIndex = 0;
 	lcdTask[ id ].readingColumnIndex = 0;
-	Lcd_init( id, rs_gpio_id, rs_pin, e_gpio_id, e_pin, d0_gpio_id, d0_pin );
+	Lcd_init( id, rsGpioId, rsPin, eGpioId, ePin, dGpioId, dPin );
 }
 
 void LcdTask_setCharacter( Id_t id, uint8_t character, uint8_t row, uint8_t col )

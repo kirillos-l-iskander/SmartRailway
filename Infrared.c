@@ -2,20 +2,20 @@
 
 typedef struct
 {
-	Id_t gpio_id;
-	uint8_t pin;
+	Id_t xGpioId;
+	uint8_t xPin;
 }Infrared_t;
 
 static Infrared_t infrared[ INFRARED_NUMBER ];
 
-void Infrared_init( Id_t id, Id_t gpio_id, uint8_t pin )
+void Infrared_init( Id_t id, Id_t xGpioId, uint8_t xPin )
 {
-	infrared[ id ].gpio_id = gpio_id;
-	infrared[ id ].pin = pin;
-	Gpio_initPin( infrared[ id ].gpio_id, infrared[ id ].pin, INPUT );
+	infrared[ id ].xGpioId = xGpioId;
+	infrared[ id ].xPin = xPin;
+	Gpio_initPin( infrared[ id ].xGpioId, infrared[ id ].xPin, INPUT );
 }
 
 uint8_t Infrared_getState( Id_t id )
 {
-	return ( uint8_t ) Gpio_getPinState( infrared[ id ].gpio_id, infrared[ id ].pin );
+	return ( uint8_t ) Gpio_getPinState( infrared[ id ].xGpioId, infrared[ id ].xPin );
 }

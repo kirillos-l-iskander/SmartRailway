@@ -11,7 +11,7 @@ typedef struct
 	uint16_t wait;
 }StationTask_t;
 
-static StationTask_t stationTask[ STATION_TASK_NUMBER ];
+static StationTask_t stationTask[ STATION_NUMBER ];
 
 void StationTask_init( Id_t id )
 {

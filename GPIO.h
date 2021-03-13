@@ -3,9 +3,12 @@
 
 #include "SchedulerConfig.h"
 
-#define GPIOA_ID	( 0 )
-#define GPIOB_ID	( 1 )
-#define GPIOC_ID	( 2 )
+typedef enum
+{
+	GPIOA_ID,
+	GPIOB_ID,
+	GPIOC_ID
+}GPIO_t;
 
 #define INPUT			( GPIO_Mode_IN_FLOATING | GPIO_Input )
 #define OUTPUT		( GPIO_Mode_Out_PP | GPIO_Speed_50MHz )

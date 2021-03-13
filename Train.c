@@ -2,7 +2,7 @@
 
 void TrainTask_init( Id_t id )
 {
-	Pid_init( id );
+	
 }
 
 void TrainTask_update( void *paramter )
@@ -13,9 +13,7 @@ void TrainTask_update( void *paramter )
 	int32_t currentSpeed = ( uint16_t ) Encoder_getSpeed( id );
 	
 	requiredSpeed = ( int32_t ) ( ( ( (float) requiredSpeed / 6 ) * 32 ) / 10 );
-	
 	Pid_setError( id, requiredSpeed, currentSpeed );
-	Pid_update( (void *) id );
 	correctionSpeed = ( int32_t ) Motor_getSpeed( id ) + Pid_getCorrection( id );
 	
 	if( requiredSpeed == 0 && currentSpeed == 0 )

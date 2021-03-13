@@ -3,9 +3,12 @@
 
 #include "SchedulerConfig.h"
 
-#define TIMER1_ID	( 0 )
-#define TIMER2_ID	( 1 )
-#define TIMER3_ID	( 2 )
+typedef enum
+{
+	TIMER1_ID,
+	TIMER2_ID,
+	TIMER3_ID
+}TIMER_t;
 
 void Timer_initCounter( Id_t id );
 void Timer_setCounterValue( Id_t id, UBaseType_t counterValue );

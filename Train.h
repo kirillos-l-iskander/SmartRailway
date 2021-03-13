@@ -7,6 +7,11 @@
 #include "Pid.h"
 #include "Motor.h"
 
+typedef enum
+{
+	TRAIN1_ID
+}TRAIN_t;
+
 void TrainTask_init( Id_t id );
 void TrainTask_update( void *paramter );
 

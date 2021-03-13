@@ -2,39 +2,36 @@
 
 typedef struct
 {
-	Id_t irq_gpio_id;
+	Id_t irqGpioId;
 	uint8_t irqPin;
-	Id_t ce_gpio_id;
+	Id_t ceGpioId;
 	uint8_t cePin;
-	Id_t csn_gpio_id;
+	Id_t csnGpioId;
 	uint8_t csnPin;
-	Id_t spi_gpio_id;
-	uint8_t nssPin;
-	uint8_t sckPin;
-	uint8_t misoPin;
-	uint8_t mosiPin;
-	Id_t spi_id;
+	Id_t comGpioId;
+	uint8_t comPin;
+	Id_t comSpiId;
 }Nrf_t;
 
 static Nrf_t nrf[ NRF_NUMBER ];
 
-void Nrf_init( Id_t id, Id_t ce_gpio_id, uint8_t cePin, Id_t csn_gpio_id, uint8_t csnPin, Id_t spi_gpio_id, uint8_t nssPin, Id_t spi_id )
+void Nrf_init( Id_t id, Id_t ceGpioId, uint8_t cePin, Id_t csnGpioId, uint8_t csnPin, Id_t comGpioId, uint8_t comPin, Id_t comSpiId )
 {
 	size_t pin = 0;
-	nrf[ id ].ce_gpio_id = ce_gpio_id;
+	nrf[ id ].ceGpioId = ceGpioId;
 	nrf[ id ].cePin = cePin;
-	nrf[ id ].csn_gpio_id = csn_gpio_id;
+	nrf[ id ].csnGpioId = csnGpioId;
 	nrf[ id ].csnPin = csnPin;
-	nrf[ id ].spi_gpio_id = spi_gpio_id;
-	nrf[ id ].nssPin = nssPin;
-	nrf[ id ].spi_id = spi_id;
-	Gpio_initPin( nrf[ id ].ce_gpio_id, nrf[ id ].cePin, OUTPUT );
-	Gpio_initPin( nrf[ id ].csn_gpio_id, nrf[ id ].csnPin, OUTPUT );
-	for ( pin = nrf[ id ].nssPin; pin < ( nrf[ id ].nssPin + 4 ); pin++ )
+	nrf[ id ].comGpioId = comGpioId;
+	nrf[ id ].comPin = comPin;
+	nrf[ id ].comSpiId = comSpiId;
+	Gpio_initPin( nrf[ id ].ceGpioId, nrf[ id ].cePin, OUTPUT );
+	Gpio_initPin( nrf[ id ].csnGpioId, nrf[ id ].csnPin, OUTPUT );
+	for ( pin = nrf[ id ].comPin; pin < ( nrf[ id ].comPin + 4 ); pin++ )
 	{
-		Gpio_initPin( nrf[ id ].spi_gpio_id, pin, OUTPUT_AF );
+		Gpio_initPin( nrf[ id ].comGpioId, pin, OUTPUT_AF );
 	}
-	Spi_init( nrf[ id ].spi_id );
+	Spi_init( nrf[ id ].comSpiId );
 
 	Nrf_ce( id, LOW );
 	Nrf_csn( id, HIGH );
@@ -68,17 +65,17 @@ void Nrf_init( Id_t id, Id_t ce_gpio_id, uint8_t cePin, Id_t csn_gpio_id, uint8_
 
 void Nrf_reinit( Id_t id )
 {
-	Nrf_init( id, nrf[ id ].ce_gpio_id, nrf[ id ].cePin, nrf[ id ].csn_gpio_id, nrf[ id ].csnPin, nrf[ id ].spi_gpio_id, nrf[ id ].nssPin, nrf[ id ].spi_id );
+	Nrf_init( id, nrf[ id ].ceGpioId, nrf[ id ].cePin, nrf[ id ].csnGpioId, nrf[ id ].csnPin, nrf[ id ].comGpioId, nrf[ id ].comPin, nrf[ id ].comSpiId );
 }
 
 void Nrf_csn( Id_t id, uint8_t state )
 {
 	if( state )
 	{
-		Gpio_setPinState( nrf[ id ].csn_gpio_id, nrf[ id ].csnPin, HIGH );
+		Gpio_setPinState( nrf[ id ].csnGpioId, nrf[ id ].csnPin, HIGH );
 	}else
 	{
-		Gpio_setPinState( nrf[ id ].csn_gpio_id, nrf[ id ].csnPin, LOW );
+		Gpio_setPinState( nrf[ id ].csnGpioId, nrf[ id ].csnPin, LOW );
 	}
 }
 
@@ -86,18 +83,18 @@ void Nrf_ce( Id_t id, uint8_t state )
 {
 	if( state )
 	{
-		Gpio_setPinState( nrf[ id ].ce_gpio_id, nrf[ id ].cePin, HIGH );
+		Gpio_setPinState( nrf[ id ].ceGpioId, nrf[ id ].cePin, HIGH );
 	}else
 	{
-		Gpio_setPinState( nrf[ id ].ce_gpio_id, nrf[ id ].cePin, LOW );
+		Gpio_setPinState( nrf[ id ].ceGpioId, nrf[ id ].cePin, LOW );
 	}
 }
 
 void Nrf_writeByte( Id_t id, uint8_t reg, uint8_t buff )
 {
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, W_REGISTER | ( REGISTER_MASK & reg ) );
-	Spi_transfer( nrf[ id ].spi_id, buff );
+	Spi_transfer( nrf[ id ].comSpiId, W_REGISTER | ( REGISTER_MASK & reg ) );
+	Spi_transfer( nrf[ id ].comSpiId, buff );
 	Nrf_csn( id, HIGH );
 }
 
@@ -105,10 +102,10 @@ void Nrf_writePage( Id_t id, uint8_t reg, uint8_t *buff, uint8_t len )
 {
 	buff = buff + len - 1;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, W_REGISTER | ( REGISTER_MASK & reg ) );
+	Spi_transfer( nrf[ id ].comSpiId, W_REGISTER | ( REGISTER_MASK & reg ) );
 	while( len-- )
 	{
-		Spi_transfer( nrf[ id ].spi_id, *buff-- );
+		Spi_transfer( nrf[ id ].comSpiId, *buff-- );
 	}
 	Nrf_csn( id, HIGH );
 }
@@ -117,8 +114,8 @@ uint8_t Nrf_readByte( Id_t id, uint8_t reg )
 {
 	uint8_t buff;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, R_REGISTER | ( REGISTER_MASK & reg ) );
-	buff = Spi_transfer( nrf[ id ].spi_id, NOP );
+	Spi_transfer( nrf[ id ].comSpiId, R_REGISTER | ( REGISTER_MASK & reg ) );
+	buff = Spi_transfer( nrf[ id ].comSpiId, NOP );
 	Nrf_csn( id, HIGH );
 	return buff;
 }
@@ -127,10 +124,10 @@ void Nrf_readPage( Id_t id, uint8_t reg, uint8_t *buff, uint8_t len )
 {
 	buff = buff + len - 1;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, R_REGISTER | ( REGISTER_MASK & reg ) );
+	Spi_transfer( nrf[ id ].comSpiId, R_REGISTER | ( REGISTER_MASK & reg ) );
 	while( len-- )
 	{
-		*buff-- = Spi_transfer( nrf[ id ].spi_id, NOP );
+		*buff-- = Spi_transfer( nrf[ id ].comSpiId, NOP );
 	}
 	Nrf_csn( id, HIGH );
 }
@@ -138,14 +135,14 @@ void Nrf_readPage( Id_t id, uint8_t reg, uint8_t *buff, uint8_t len )
 void Nrf_flushTx( Id_t id )
 {
 	Nrf_csn( id, LOW );
-  Spi_transfer( nrf[ id ].spi_id, FLUSH_TX );
+  Spi_transfer( nrf[ id ].comSpiId, FLUSH_TX );
 	Nrf_csn( id, HIGH );
 }
 
 void Nrf_flushRx( Id_t id )
 {
 	Nrf_csn( id, LOW );
-  Spi_transfer( nrf[ id ].spi_id, FLUSH_RX );
+  Spi_transfer( nrf[ id ].comSpiId, FLUSH_RX );
 	Nrf_csn( id, HIGH );
 }
 
@@ -178,7 +175,7 @@ uint8_t Nrf_checkTxFlag( Id_t id )
 		if( Nrf_readByte( id, STATUS ) & BV( MAX_RT ) )
 		{
 			Nrf_writeByte( id, STATUS, Nrf_readByte( id, STATUS ) | BV( MAX_RT ) );
-			Spi_transfer( nrf[ id ].spi_id, REUSE_TX_PL );
+			Spi_transfer( nrf[ id ].comSpiId, REUSE_TX_PL );
 			Nrf_ce( id, HIGH );
 			DELAY_US( 15 );
 			Nrf_ce( id, LOW );
@@ -203,10 +200,10 @@ void Nrf_transmit( Id_t id, uint8_t *buffer )
 {
 	uint8_t length = PAYLOAD_SIZE;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, W_TX_PAYLOAD );
+	Spi_transfer( nrf[ id ].comSpiId, W_TX_PAYLOAD );
 	while( length-- )
 	{
-		Spi_transfer( nrf[ id ].spi_id, *buffer++ );
+		Spi_transfer( nrf[ id ].comSpiId, *buffer++ );
 	}
 	Nrf_csn( id, HIGH );
 	Nrf_ce( id, HIGH );
@@ -218,10 +215,10 @@ void Nrf_receive( Id_t id, uint8_t *buffer )
 {
 	uint8_t length = PAYLOAD_SIZE;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, R_RX_PAYLOAD );
+	Spi_transfer( nrf[ id ].comSpiId, R_RX_PAYLOAD );
 	while( length-- )
 	{
-		*buffer++ = Spi_transfer( nrf[ id ].spi_id, NOP );
+		*buffer++ = Spi_transfer( nrf[ id ].comSpiId, NOP );
 	}
 	Nrf_csn( id, HIGH );
 }
@@ -230,10 +227,10 @@ void Nrf_ack( Id_t id, uint8_t *buffer )
 {
 	uint8_t length = PAYLOAD_SIZE;
 	Nrf_csn( id, LOW );
-	Spi_transfer( nrf[ id ].spi_id, W_ACK_PAYLOAD );
+	Spi_transfer( nrf[ id ].comSpiId, W_ACK_PAYLOAD );
 	while( length-- )
 	{
-		Spi_transfer( nrf[ id ].spi_id, *buffer++ );
+		Spi_transfer( nrf[ id ].comSpiId, *buffer++ );
 	}
 	Nrf_csn( id, HIGH );
 }

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\STM32F103C8T6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\STM32F103C8T6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Fri Mar 12 16:37:38 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Sat Mar 13 15:35:07 2021
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -523,11 +523,11 @@ Global Symbols
 <P><STRONG><a name="[4f]"></a>NrfTaskMaster_init</STRONG> (Thumb, 156 bytes, Stack size 56 bytes, nrftask.o(.text.NrfTaskMaster_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = NrfTaskMaster_init &rArr; Nrf_init &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_openWritingPipe
+<BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_openWritingPipe
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 <LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_clearTxBuffer
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_clearRxBuffer
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serverTask
 </UL>
@@ -535,15 +535,15 @@ Global Symbols
 <P><STRONG><a name="[38]"></a>NrfTaskMaster_update</STRONG> (Thumb, 364 bytes, Stack size 32 bytes, nrftask.o(.text.NrfTaskMaster_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = NrfTaskMaster_update &rArr; Nrf_openWritingPipe &rArr; Nrf_writePage &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_stopRxMode
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
+<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_openWritingPipe
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkRxFlag
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedTask_setState
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_stopRxMode
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.serverTask)
 </UL>
@@ -551,55 +551,55 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serverTask
 </UL>
 
-<P><STRONG><a name="[5c]"></a>Nrf_ce</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_ce))
+<P><STRONG><a name="[5c]"></a>Nrf_ce</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_ce))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Nrf_ce
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_setPinState
 </UL>
-<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_stopRxMode
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
 </UL>
 
 <P><STRONG><a name="[58]"></a>Nrf_checkRxFlag</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_checkRxFlag))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nrf_checkRxFlag &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_update
 </UL>
 
-<P><STRONG><a name="[56]"></a>Nrf_checkTxFlag</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, nrf.o(.text.Nrf_checkTxFlag))
+<P><STRONG><a name="[56]"></a>Nrf_checkTxFlag</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, nrf.o(.text.Nrf_checkTxFlag))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Nrf_checkTxFlag &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_ce
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Spi_transfer
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Scheduler_delaySoftwareUs
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_update
 </UL>
 
-<P><STRONG><a name="[61]"></a>Nrf_csn</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_csn))
+<P><STRONG><a name="[61]"></a>Nrf_csn</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_csn))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_setPinState
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writePage
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
+<BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushTx
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushRx
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writePage
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
 </UL>
 
-<P><STRONG><a name="[62]"></a>Nrf_flushRx</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_flushRx))
+<P><STRONG><a name="[62]"></a>Nrf_flushRx</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_flushRx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nrf_flushRx &rArr; Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
@@ -608,7 +608,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 </UL>
 
-<P><STRONG><a name="[63]"></a>Nrf_flushTx</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_flushTx))
+<P><STRONG><a name="[63]"></a>Nrf_flushTx</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_flushTx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nrf_flushTx &rArr; Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
@@ -617,17 +617,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 </UL>
 
-<P><STRONG><a name="[52]"></a>Nrf_init</STRONG> (Thumb, 282 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_init))
+<P><STRONG><a name="[52]"></a>Nrf_init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Nrf_init &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushTx
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushRx
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_ce
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Spi_init
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_initPin
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_init
 </UL>
@@ -642,17 +642,17 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_init
 </UL>
 
-<P><STRONG><a name="[5d]"></a>Nrf_readByte</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, nrf.o(.text.Nrf_readByte))
+<P><STRONG><a name="[5d]"></a>Nrf_readByte</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, nrf.o(.text.Nrf_readByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Nrf_readByte &rArr; Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Spi_transfer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkRxFlag
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
 </UL>
 
 <P><STRONG><a name="[59]"></a>Nrf_receive</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_receive))
@@ -667,9 +667,9 @@ Global Symbols
 <P><STRONG><a name="[57]"></a>Nrf_startRxMode</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_startRxMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nrf_startRxMode &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_ce
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_update
 </UL>
@@ -677,8 +677,8 @@ Global Symbols
 <P><STRONG><a name="[54]"></a>Nrf_startTxMode</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, nrf.o(.text.Nrf_startTxMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nrf_startTxMode &rArr; Nrf_writeByte &rArr; Nrf_csn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_update
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_init
@@ -703,21 +703,21 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NrfTaskMaster_update
 </UL>
 
-<P><STRONG><a name="[5e]"></a>Nrf_writeByte</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_writeByte))
+<P><STRONG><a name="[5e]"></a>Nrf_writeByte</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_writeByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Nrf_writeByte &rArr; Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Spi_transfer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_openWritingPipe
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_openWritingPipe
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_init
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkRxFlag
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startTxMode
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_startRxMode
 </UL>
 
-<P><STRONG><a name="[65]"></a>Nrf_writePage</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_writePage))
+<P><STRONG><a name="[65]"></a>Nrf_writePage</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, nrf.o(.text.Nrf_writePage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Nrf_writePage &rArr; Nrf_csn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_csn
@@ -739,9 +739,9 @@ Global Symbols
 <P><STRONG><a name="[60]"></a>Scheduler_delaySoftwareUs</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, schedulerconfig.o(.text.Scheduler_delaySoftwareUs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Scheduler_delaySoftwareUs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serverTask
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
 </UL>
 
 <P><STRONG><a name="[67]"></a>Scheduler_deleteTask</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, scheduler.o(.text.Scheduler_deleteTask))
@@ -816,14 +816,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[5f]"></a>Spi_transfer</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, spi.o(.text.Spi_transfer))
-<BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writePage
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
+<BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_receive
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_readByte
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushTx
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_flushRx
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_checkTxFlag
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writePage
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_writeByte
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nrf_transmit
 </UL>
 
 <P><STRONG><a name="[9]"></a>SysTick_Handler</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, main.o(.text.SysTick_Handler))

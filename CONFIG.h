@@ -9,16 +9,12 @@
 typedef uint8_t								Id_t;
 
 #define LED_NUMBER						( 2 )
-#define LED_TASK_NUMBER				( 2 )
 
 #define NRF_NUMBER						( 1 )
-#define NRF_TASK_NUMBER				( 1 )
 
 #define INFRARED_NUMBER				( 3 )
-#define INFRARED_TASK_NUMBER	( 3 )
 
 #define LCD_NUMBER						( 1 )
-#define LCD_TASK_NUMBER				( 1 )
 #define LCD_ROW_NUMBER				( 2 )
 #define LCD_COL_NUMBER				( 16 )
 
@@ -26,8 +22,8 @@ typedef uint8_t								Id_t;
 #define PID_NUMBER						( 1 )
 #define MOTOR_NUMBER					( 1 )
 
-#define STATION_TASK_NUMBER		( 1 )
-#define TRAIN_TASK_NUMBER			( 1 )
+#define STATION_NUMBER				( 1 )
+#define TRAIN_NUMBER					( 1 )
 //--------------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------------
