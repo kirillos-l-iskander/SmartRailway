@@ -1,20 +1,89 @@
 #ifndef TIMER_H
 #define	TIMER_H
 
-#include "SchedulerConfig.h"
+#include "Config.h"
 
 typedef enum
 {
-	TIMER1_ID,
-	TIMER2_ID,
-	TIMER3_ID
-}TIMER_t;
+	TIMER_ID_1 = 0,
+	TIMER_ID_2,
+	TIMER_ID_3,
+	TIMER_ID_MAX,
+}	TIMER_ID_t;
 
-void Timer_initCounter( Id_t id );
-void Timer_setCounterValue( Id_t id, UBaseType_t counterValue );
-UBaseType_t Timer_getCounterValue( Id_t id );
-void Timer_initPwm( Id_t id );
-void Timer_setPwmDutyCycle( Id_t id, UBaseType_t pwmDutyCycle );
-UBaseType_t Timer_getPwmDutyCycle( Id_t id );
+typedef enum
+{
+	TIMER_MODE_NORMAL = 0,
+	TIMER_MODE_COUNTUP,
+	TIMER_MODE_COUNTDOWN,
+}	TIMER_MODE_t;
+
+typedef enum
+{
+	TIMER_CHANNEL_NORMAL = 0,
+	TIMER_CHANNEL_1,
+	TIMER_CHANNEL_2,
+	TIMER_CHANNEL_3,
+	TIMER_CHANNEL_4,
+}	TIMER_CHANNEL_t;
+
+typedef enum
+{
+	TIMER_EVENT_NORMAL = 0,
+	TIMER_EVENT_CLOCKIN_RISING,
+	TIMER_EVENT_CLOCKIN_FALLING,
+	TIMER_EVENT_CAPTURE_RISING,
+	TIMER_EVENT_CAPTURE_FALLING,
+	TIMER_EVENT_COMPARE_TOGGLE,
+	TIMER_EVENT_COMPARE_RESET,
+	TIMER_EVENT_COMPARE_SET,
+	TIMER_EVENT_PWM_NONINVERT,
+	TIMER_EVENT_PWM_INVERT,
+}	TIMER_EVENT_t;
+
+typedef enum
+{
+	TIMER_PERIOD_MIN = 0,
+	TIMER_PERIOD_1MS = 1,
+	TIMER_PERIOD_5MS = 5,
+	TIMER_PERIOD_10MS = 10,
+	TIMER_PERIOD_20MS = 20,
+	TIMER_PERIOD_30MS = 30,
+	TIMER_PERIOD_40MS = 40,
+	TIMER_PERIOD_50MS = 50,
+	TIMER_PERIOD_60MS = 60,
+	TIMER_PERIOD_70MS = 70,
+	TIMER_PERIOD_80MS = 80,
+	TIMER_PERIOD_90MS = 90,
+	TIMER_PERIOD_100MS = 100,
+	TIMER_PERIOD_200MS = 200,
+	TIMER_PERIOD_300MS = 300,
+	TIMER_PERIOD_400MS = 400,
+	TIMER_PERIOD_500MS = 500,
+	TIMER_PERIOD_600MS = 600,
+	TIMER_PERIOD_700MS = 700,
+	TIMER_PERIOD_800MS = 800,
+	TIMER_PERIOD_900MS = 900,
+	TIMER_PERIOD_1000MS = 1000,
+	TIMER_PERIOD_MAX = 65535,
+}	TIMER_PERIOD_t;
+
+typedef enum
+{
+	TIMER_COUNTER_MIN = 0,
+	TIMER_COUNTER_MAX = 65535,
+}	TIMER_COUNTER_t;
+
+typedef enum
+{
+	TIMER_PWM_MIN = 0,
+	TIMER_PWM_MAX = 100,
+}	TIMER_PWM_t;
+
+void Timer_init( TIMER_ID_t id, TIMER_MODE_t mode, TIMER_PERIOD_t period, TIMER_CHANNEL_t channel, TIMER_EVENT_t event );
+void Timer_setCounter( TIMER_ID_t id, TIMER_COUNTER_t counterValue );
+TIMER_COUNTER_t Timer_getCounter( TIMER_ID_t id );
+void Timer_setPwmDutyCycle( TIMER_ID_t id, TIMER_CHANNEL_t channel, TIMER_PWM_t pwmDutyCycle );
+TIMER_PWM_t Timer_getPwmDutyCycle( TIMER_ID_t id, TIMER_CHANNEL_t channel );
 
 #endif	/* TIMER_H */

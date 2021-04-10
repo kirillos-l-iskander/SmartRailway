@@ -2,9 +2,9 @@
 
 typedef RCC_TypeDef Rcc_t;
 
-static Rcc_t *rcc[ 1 ] = { RCC };
+static Rcc_t *rcc[ RCC_ID_MAX ] = { RCC };
 
-void Rcc_enableClock( Id_t id, void *paramter )
+void Rcc_enableClock( RCC_ID_t id, void *paramter )
 {
 	if( paramter == AFIO )
 	{

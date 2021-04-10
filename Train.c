@@ -1,34 +1,70 @@
 #include "Train.h"
 
-void TrainTask_init( Id_t id )
+typedef struct
 {
-	
+	NRF_ID_t xNrfId;
+	RTRYENCDR_ID_t xRtryencdrId;
+	PID_ID_t xPidId;
+	MOTOR_ID_t xMotorId;
+}	Train_t;
+
+static Train_t train[ TRAIN_ID_MAX ];
+
+void Train_init( TRAIN_ID_t id, NRF_ID_t xNrfId, RTRYENCDR_ID_t xRtryencdrId, PID_ID_t xPidId, MOTOR_ID_t xMotorId )
+{
+	train[ id ].xNrfId = xNrfId;
+	train[ id ].xRtryencdrId = xRtryencdrId;
+	train[ id ].xPidId = xPidId;
+	train[ id ].xMotorId = xMotorId;
 }
 
-void TrainTask_update( void *paramter )
+void Train_update( void *paramter )
 {
-	Id_t id = (Id_t) paramter;
-	int32_t correctionSpeed = 0;
-	int32_t requiredSpeed = NrfTaskSlave_getBuffer( id , 2 );
-	int32_t currentSpeed = ( uint16_t ) Encoder_getSpeed( id );
+	TRAIN_ID_t id = (TRAIN_ID_t) paramter;
+	uint8_t nrfRxBuffer = Nrf_getRxBuffer( train[ id ].xNrfId, NRF_NODE_0, 2 );
 	
-	requiredSpeed = ( int32_t ) ( ( ( (float) requiredSpeed / 6 ) * 32 ) / 10 );
-	Pid_setError( id, requiredSpeed, currentSpeed );
-	correctionSpeed = ( int32_t ) Motor_getSpeed( id ) + Pid_getCorrection( id );
+	RTRYENCDR_COUNTER_t rtryencdrCurrentSpeedBuffer = Rtryencdr_getSpeed( train[ id ].xRtryencdrId );
+
+	RTRYENCDR_COUNTER_t rtryencdrRequiredSpeedBuffer = (RTRYENCDR_COUNTER_t) ( ( ( (float) nrfRxBuffer / 6 ) * 32 ) / 10 );
 	
-	if( requiredSpeed == 0 && currentSpeed == 0 )
+	Pid_setError( train[ id ].xPidId, rtryencdrRequiredSpeedBuffer, rtryencdrCurrentSpeedBuffer );
+	int32_t pidCorrection = Pid_getCorrection( train[ id ].xPidId );
+	
+	if( rtryencdrRequiredSpeedBuffer == 0 && rtryencdrCurrentSpeedBuffer == 0 )
 	{
-		Motor_setSpeed( id, (uint16_t) 0 );
-	}else if( ( requiredSpeed == 0 ) && ( currentSpeed > 0 ) )
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_0 );
+	}else if( pidCorrection <= 0 )
 	{
-		Motor_setSpeed( id, (uint16_t) 0 );
-	}else if( ( requiredSpeed > 0 ) && ( currentSpeed == 0 ) )
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_0 );
+	}else if( pidCorrection <= 10 )
 	{
-		Motor_setSpeed( id, (uint16_t) 50000 );
-	}else if( ( correctionSpeed >= 0 ) && ( correctionSpeed <= 65535 ) )
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_10 );
+	}else if( pidCorrection <= 20 )
 	{
-		Motor_setSpeed( id, ( uint16_t ) correctionSpeed );
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_20 );
+	}else if( pidCorrection <= 30 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_30 );
+	}else if( pidCorrection <= 40 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_40 );
+	}else if( pidCorrection <= 50 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_50 );
+	}else if( pidCorrection <= 60)
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_60 );
+	}else if( pidCorrection <= 70 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_70 );
+	}else if( pidCorrection <= 80 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_80 );
+	}else if( pidCorrection <= 90 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_90 );
+	}else if( pidCorrection <= 100 )
+	{
+		Motor_setSpeed( train[ id ].xMotorId, MOTOR_SPEED_100 );
 	}
-	
-	Encoder_reset( id );
 }

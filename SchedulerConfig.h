@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Config.h"
-
 //--------------------------------------------------------------------------------------------------------------------
 
 #define SCH_CPU_F																						( 72000000 )
@@ -42,6 +40,7 @@
 //--------------------------------------------------------------------------------------------------------------------
 
 #define BV( n )													( 1 << n )
+/*
 #define SET_BIT( reg, bit )							( reg |= ( 1 << bit ) )
 #define CLEAR_BIT( reg, bit )						( reg &= ~( 1 << bit ) )
 #define TOGGLE_BIT( reg, bit )					( reg ^= ( 1 << bit ) )
@@ -49,6 +48,7 @@
 #define ROL( reg, bit )									( reg = ( reg << bit | reg >> ( 32 - bit ) ) )
 #define IS_BIT_SET( reg, bit )					( reg & ( 1 << bit ) )
 #define IS_BIT_CLEAR( reg, bit )				( !( reg & ( 1 << bit ) ) )
+*/
 #define MS_TO_TICKS( t )								( t / SCH_MS_TICK_PERIOD )
 #define DELAY_MS( t )										Scheduler_delaySoftwareMs( t )
 #define DELAY_US( t )										Scheduler_delaySoftwareUs( t )

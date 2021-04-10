@@ -1,10 +1,10 @@
 #include "SchedulerConfig.h"
 #include "Timer.h"
-#include "LedTask.h"
+#include "Led.h"
 
-void Scheduler_initSysTick( TickType_t msTickPeriod )
+void Scheduler_initSysTick( TickType_t systickPeriod )
 {
-	TickType_t tickNumber = ( TickType_t )( ( ( ( ( SCH_CPU_F / SCH_CPU_INSTRUCTION ) / SCH_TIMER_PRESCALER ) / 1000 ) * msTickPeriod ) - 1 );
+	TickType_t tickNumber = ( TickType_t )( ( ( ( ( SCH_CPU_F / SCH_CPU_INSTRUCTION ) / SCH_TIMER_PRESCALER ) / 1000 ) * systickPeriod ) - 1 );
 	//NVIC_SetPriority( SysTick_IRQn,( 1 << __NVIC_PRIO_BITS ) - 1 );
 	//NVIC_EnableIRQ( SysTick_IRQn );
 	SysTick->CTRL = 0;
@@ -17,10 +17,10 @@ void Scheduler_displayError( UBaseType_t errorCode )
 {
 	if( errorCode )
 	{
-		LedTask_setState( LED2_ID, LOW, 0 );
+		Led_setState( LED_ID_1, LED_STATE_OFF, LED_BLINK_0MS );
 	}else
 	{
-		LedTask_setState( LED2_ID, HIGH, 0 );
+		Led_setState( LED_ID_1, LED_STATE_ON, LED_BLINK_0MS );
 	}
 }
 

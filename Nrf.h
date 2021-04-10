@@ -1,11 +1,13 @@
 #ifndef NRF_H
 #define	NRF_H
 
-#include "SchedulerConfig.h"
+#include "Config.h"
 #include "Gpio.h"
 #include "Spi.h"
+#include "Led.h"
 
 /* Memory Map */
+/*
 #define CONFIG      0x00
 #define EN_AA       0x01
 #define EN_RXADDR   0x02
@@ -32,6 +34,7 @@
 #define FIFO_STATUS 0x17
 #define DYNPD	    0x1C
 #define FEATURE	    0x1D
+*/
 
 /* Bit Mnemonics */
 #define MASK_RX_DR  6
@@ -84,6 +87,7 @@
 #define EN_DYN_ACK  0
 
 /* Instruction Mnemonics */
+/*
 #define REGISTER_MASK 0x1F
 #define R_REGISTER    0x00
 #define W_REGISTER    0x20
@@ -96,44 +100,138 @@
 #define W_ACK_PAYLOAD 0xA8
 #define W_TX_PAYLOAD_NO_ACK  0xB0
 #define NOP           0xFF
+*/
 
-#define rf24_max( a, b ) ( a>b? a:b )
-#define rf24_min( a, b ) ( a<b? a:b )
-
-typedef enum { RF24_PA_MIN = 0,RF24_PA_LOW, RF24_PA_HIGH, RF24_PA_MAX, RF24_PA_ERROR } rf24_pa_dbm_e;
-typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
-typedef enum { RF24_CRC_DISABLED = 0, RF24_CRC_8, RF24_CRC_16 } rf24_crclength_e;
+#define NRF_MAX( a, b ) ( a>b? a:b )
+#define BRF_MIN( a, b ) ( a<b? a:b )
 
 typedef enum
 {
-	NRF1_ID
-}NRF_t;
+	NRF_ID_1 = 0,
+	NRF_ID_MAX,
+}	NRF_ID_t;
 
-void Nrf_init( Id_t id, Id_t ceGpioId, uint8_t cePin, Id_t csnGpioId, uint8_t csnPin, Id_t comGpioId, uint8_t comPin, Id_t comSpiId );
-void Nrf_reinit( Id_t id );
-void Nrf_csn( Id_t id, uint8_t state );
-void Nrf_ce( Id_t id, uint8_t state );
-void Nrf_writeByte( Id_t id, uint8_t reg, uint8_t buff );
-void Nrf_writePage( Id_t id, uint8_t reg, uint8_t *buff, uint8_t len );
-uint8_t Nrf_readByte( Id_t id, uint8_t reg );
-void Nrf_readPage( Id_t id, uint8_t reg, uint8_t *buff, uint8_t len );
-void Nrf_flushTx( Id_t id );
-void Nrf_flushRx( Id_t id );
-void Nrf_startTxMode( Id_t id );
-void Nrf_startRxMode( Id_t id );
-void Nrf_stopRxMode( Id_t id );
-uint8_t Nrf_checkTxFlag( Id_t id );
-uint8_t Nrf_checkRxFlag( Id_t id );
-void Nrf_transmit( Id_t id, uint8_t *buffer );
-void Nrf_receive( Id_t id, uint8_t *buffer );
-void Nrf_ack( Id_t id, uint8_t *buffer );
-void Nrf_setChannel( Id_t id, uint8_t channel );
-void Nrf_openWritingPipe( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe1( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe2( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe3( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe4( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe5( Id_t id, uint8_t *address );
-void Nrf_openReadingPipe6( Id_t id, uint8_t *address );
+typedef enum
+{
+	NRF_STATE_LOW = 0,
+	NRF_STATE_HIGH,
+}	NRF_STATE_t;
+
+typedef enum
+{
+	R_REGISTER = 0x00,
+	REGISTER_MASK = 0x1F,
+	W_REGISTER = 0x20,
+	R_RX_PL_WID = 0x60,
+	R_RX_PAYLOAD = 0x61,
+	W_TX_PAYLOAD = 0xA0,
+	W_ACK_PAYLOAD = 0xA8,
+	W_TX_PAYLOAD_NO_ACK = 0xB0,
+	FLUSH_TX = 0xE1,
+	FLUSH_RX = 0xE2,
+	REUSE_TX_PL = 0xE3,
+	NOP = 0xFF,
+}	NRF_COMMAND_t;
+
+typedef enum
+{
+	CONFIG = 0,
+	EN_AA,
+	EN_RXADDR,
+	SETUP_AW,
+	SETUP_RETR,
+	RF_CH,
+	RF_SETUP,
+	STATUS,
+	OBSERVE_TX,
+	RPD,
+	RX_ADDR_P0,
+	RX_ADDR_P1,
+	RX_ADDR_P2,
+	RX_ADDR_P3,
+	RX_ADDR_P4,
+	RX_ADDR_P5,
+	TX_ADDR,
+	RX_PW_P0,
+	RX_PW_P1,
+	RX_PW_P2,
+	RX_PW_P3,
+	RX_PW_P4,
+	RX_PW_P5,
+	FIFO_STATUS,
+	DYNPD = 0x1C,
+	FEATURE = 0x1D,
+}	NRF_REG_t;
+
+typedef enum
+{
+	NRF_CRC_DISABLED = 0,
+	NRF_CRC_8BITS,
+	NRF_CRC_16BITS,
+}	NRF_CRC_t;
+
+typedef enum
+{
+	NRF_DR_1MBPS = 0,
+	NRF_DR_2MBPS,
+	NRF_DR_250KBPS,
+}	NRF_DR_t;
+
+typedef enum
+{
+	NRF_PA_MIN = 0,
+	NRF_PA_LOW,
+	NRF_PA_HIGH,
+	NRF_PA_MAX,
+	NRF_PA_ERROR,
+}	NRF_PA_t;
+
+typedef enum
+{
+	NRF_NODE_0,
+	NRF_NODE_1,
+	NRF_NODE_2,
+	NRF_NODE_3,
+	NRF_NODE_4,
+	NRF_NODE_MAX,
+}	NRF_NODE_t;
+
+void Nrf_init( NRF_ID_t id, GPIO_ID_t gpioIdCe, GPIO_PIN_t gpioPinCe,
+							 GPIO_ID_t gpioIdCsn, GPIO_PIN_t gpioPinCsn, GPIO_ID_t gpioIdCom, GPIO_PIN_t gpioPinCom, SPI_ID_t spiId );
+void Nrf_reinit( NRF_ID_t id );
+void Nrf_csn( NRF_ID_t id, NRF_STATE_t state );
+void Nrf_ce( NRF_ID_t id, NRF_STATE_t state );
+void Nrf_writeByte( NRF_ID_t id, NRF_REG_t reg, uint8_t buff );
+void Nrf_writePage( NRF_ID_t id, NRF_REG_t reg, uint8_t *buff, uint8_t len );
+uint8_t Nrf_readByte( NRF_ID_t id, NRF_REG_t reg );
+void Nrf_readPage( NRF_ID_t id, NRF_REG_t reg, uint8_t *buff, uint8_t len );
+void Nrf_flushTx( NRF_ID_t id );
+void Nrf_flushRx( NRF_ID_t id );
+void Nrf_startTxMode( NRF_ID_t id );
+void Nrf_startRxMode( NRF_ID_t id );
+void Nrf_stopRxMode( NRF_ID_t id );
+uint8_t Nrf_checkTxFlag( NRF_ID_t id );
+uint8_t Nrf_checkRxFlag( NRF_ID_t id );
+void Nrf_transmit( NRF_ID_t id, uint8_t *buffer );
+void Nrf_receive( NRF_ID_t id, uint8_t *buffer );
+void Nrf_writeAck( NRF_ID_t id, uint8_t *buffer );
+void Nrf_setChannel( NRF_ID_t id, uint8_t channel );
+void Nrf_openWritingPipe( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe0( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe1( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe2( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe3( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe4( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe5( NRF_ID_t id, uint8_t *address );
+void Nrf_openReadingPipe6( NRF_ID_t id, uint8_t *address );
+
+void Nrf_setNodeNumber( NRF_ID_t id, NRF_NODE_t node );
+NRF_NODE_t Nrf_getNodeNumber( NRF_ID_t id );
+void Nrf_setTxBuffer( NRF_ID_t id, NRF_NODE_t node, uint8_t index, uint8_t buffer );
+uint8_t Nrf_getRxBuffer( NRF_ID_t id, NRF_NODE_t node, uint8_t index );
+void Nrf_clearTxBuffer( NRF_ID_t id );
+void Nrf_clearRxBuffer( NRF_ID_t id );
+void Nrf_updateMaster( void *paramter );
+void Nrf_updateSlave( void *paramter );
 
 #endif	/* NRF_H */
